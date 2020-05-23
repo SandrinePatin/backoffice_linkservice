@@ -44,6 +44,10 @@ public class Controller {
                 mainStage.setTitle("LinkService Backoffice");
                 mainStage.setScene(new Scene(mainApp));
                 mainStage.show();
+
+                Stage primaryStage = (Stage) connectBtn.getScene().getWindow();
+                primaryStage.close();
+
             }
 
 

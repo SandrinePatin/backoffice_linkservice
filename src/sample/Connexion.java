@@ -53,6 +53,9 @@ public class Connexion {
         var response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         System.out.println(response.body());
+
+        //TODO: if API is down
+
         if(response.body().equals("null")){
             return 0;
         } else {
