@@ -31,7 +31,7 @@ public class Connexion {
         return password;
     }
 
-    public boolean checkConnexion() throws IOException, InterruptedException {
+    public int checkConnexion() throws IOException, InterruptedException {
         Gson gson = new Gson ();
         String api_url = "http://localhost:4000/connection";
 
@@ -52,12 +52,13 @@ public class Connexion {
         var client = HttpClient.newHttpClient();
         var response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        System.out.println("Json de sorti (type string) :\n" + response.body());
-
-        User rep = gson.fromJson(response.body(),User.class);
-        System.out.println(rep.getId());
-
-        return false;
+        System.out.println(response.body());
+        if(response.body().equals("null")){
+            return 0;
+        } else {
+            User user = gson.fromJson(response.body(),User.class);
+            return user.getId();
+        }
     }
 
     private boolean testReadAll() throws IOException, InterruptedException {

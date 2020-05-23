@@ -2,9 +2,14 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -13,6 +18,8 @@ public class Controller {
 
     @FXML
     private Button connectBtn;
+    @FXML
+    private Label errorLabel;
 
     @FXML
     private TextField username;
@@ -24,8 +31,20 @@ public class Controller {
 
             Connexion connexion = new Connexion(username.getText(), password.getText());
             System.out.println(connexion.getPassword());
-            connexion.checkConnexion();
+            int idUser = connexion.checkConnexion();
 
+            if(idUser == 0){
+                errorLabel.setVisible(true);
+            } else {
+                User userSession = new User(idUser);
+
+                Stage mainStage = new Stage();
+
+                Parent mainApp = FXMLLoader.load(getClass().getResource("../home/Home.fxml"));
+                mainStage.setTitle("LinkService Backoffice");
+                mainStage.setScene(new Scene(mainApp));
+                mainStage.show();
+            }
 
 
         }
