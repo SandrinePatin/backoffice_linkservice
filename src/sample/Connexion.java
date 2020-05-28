@@ -33,9 +33,8 @@ public class Connexion {
         return password;
     }
 
-    public int checkConnexion() throws IOException, InterruptedException {
+    public User checkConnexion() throws IOException, InterruptedException {
         Gson gson = new Gson ();
-        String api_url = "http://localhost:4000/connection";
 
         HashMap<String, String> inputValues = new HashMap<>();
         inputValues.put("email",email);
@@ -48,15 +47,12 @@ public class Connexion {
 
         var response = API.sendRequest(inputJson, "connection");
 
-        System.out.println(response.body());
-
         //TODO: if API is down
 
         if(response.body().equals("null")){
-            return 0;
+            return null;
         } else {
-            User user = gson.fromJson(response.body(),User.class);
-            return user.getId();
+            return gson.fromJson(response.body(),User.class);
         }
     }
 

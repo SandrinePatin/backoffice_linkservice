@@ -1,7 +1,7 @@
 package Classes;
 
 public class User {
-    private final int id;
+    private  int id;
     private String email;
     private String name;
     private String surname;
@@ -9,6 +9,10 @@ public class User {
 
     public User(int idUser){
         id = idUser;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

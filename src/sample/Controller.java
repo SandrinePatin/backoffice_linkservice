@@ -28,15 +28,13 @@ public class Controller {
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException, NoSuchAlgorithmException {
         if (actionEvent.getSource() == connectBtn) {
-
             Connexion connexion = new Connexion(username.getText(), password.getText());
-            System.out.println(connexion.getPassword());
-            int idUser = connexion.checkConnexion();
 
-            if (idUser == 0) {
+            User user = connexion.checkConnexion();
+
+            if (user == null) {
                 errorLabel.setVisible(true);
             } else {
-                User userSession = new User(idUser);
 
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("../home/Home.fxml")
@@ -46,7 +44,7 @@ public class Controller {
                 mainStage.setTitle("LinkService Backoffice");
                 mainStage.setScene(new Scene((Pane) loader.load()));
                 home.Controller controller = loader.getController();
-                controller.initData(userSession);
+                controller.initData(user);
 
                 mainStage.show();
 
