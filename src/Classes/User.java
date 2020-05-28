@@ -1,4 +1,4 @@
-package sample;
+package Classes;
 
 public class User {
     private final int id;
@@ -17,5 +17,9 @@ public class User {
 
     public String getType() {
         return type;
+    }
+
+    public void getUserInfos(){
+
     }
 }

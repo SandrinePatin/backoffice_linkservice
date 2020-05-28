@@ -1,4 +1,4 @@
-package sample;
+package Classes;
 
 public class Ticket {
     private int id;

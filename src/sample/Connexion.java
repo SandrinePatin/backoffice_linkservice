@@ -9,8 +9,10 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.HashMap;
+
+import Classes.API;
+import Classes.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -44,13 +46,7 @@ public class Connexion {
         inputData.put("values", inputValues);
         String inputJson = gson.toJson(inputData);
 
-        var request = HttpRequest.newBuilder()
-                .uri(URI.create(api_url))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(inputJson))
-                .build();
-        var client = HttpClient.newHttpClient();
-        var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        var response = API.sendRequest(inputJson, "connection");
 
         System.out.println(response.body());
 
