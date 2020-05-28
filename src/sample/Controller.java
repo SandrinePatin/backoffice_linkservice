@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -27,22 +28,27 @@ public class Controller {
     private TextField password;
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException, NoSuchAlgorithmException {
-        if(actionEvent.getSource() == connectBtn){
+        if (actionEvent.getSource() == connectBtn) {
 
             Connexion connexion = new Connexion(username.getText(), password.getText());
             System.out.println(connexion.getPassword());
             int idUser = connexion.checkConnexion();
 
-            if(idUser == 0){
+            if (idUser == 0) {
                 errorLabel.setVisible(true);
             } else {
                 User userSession = new User(idUser);
 
-                Stage mainStage = new Stage();
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("../home/Home.fxml")
+                );
 
-                Parent mainApp = FXMLLoader.load(getClass().getResource("../home/Home.fxml"));
+                Stage mainStage = new Stage();
                 mainStage.setTitle("LinkService Backoffice");
-                mainStage.setScene(new Scene(mainApp));
+                mainStage.setScene(new Scene((Pane) loader.load()));
+                home.Controller controller = loader.getController();
+                controller.initData(userSession);
+
                 mainStage.show();
 
                 Stage primaryStage = (Stage) connectBtn.getScene().getWindow();

@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import sample.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -76,6 +77,10 @@ public class Controller implements Initializable {
             }
         }
 
+    }
+
+    public void initData(User sessionUser) {
+        System.out.println(sessionUser.getId());;
     }
 
 
