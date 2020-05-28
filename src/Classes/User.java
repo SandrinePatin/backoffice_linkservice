@@ -1,5 +1,10 @@
 package Classes;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.util.HashMap;
+
 public class User {
     private  int id;
     private String email;
@@ -9,6 +14,14 @@ public class User {
 
     public User(int idUser){
         id = idUser;
+    }
+
+    public User(int idUser, String e, String p, String n, String s, String t){
+        id = idUser;
+        email = e;
+        name = n;
+        surname = s;
+        type = t;
     }
 
     public void setId(int id) {
@@ -23,7 +36,10 @@ public class User {
         return type;
     }
 
-    public void getUserInfos(){
+    public String getName() { return name; }
 
-    }
+    public String getSurname() { return surname; }
+
+    public String getEmail() { return email; }
+
 }

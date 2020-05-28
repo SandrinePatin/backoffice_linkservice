@@ -35,6 +35,7 @@ public class Controller {
             if (user == null) {
                 errorLabel.setVisible(true);
             } else {
+                user = connexion.getUserData(user.getId());
 
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("../home/Home.fxml")
@@ -52,8 +53,6 @@ public class Controller {
                 primaryStage.close();
 
             }
-
-
         }
     }
 

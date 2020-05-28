@@ -56,6 +56,25 @@ public class Connexion {
         }
     }
 
+    public User getUserData(int id) throws IOException, InterruptedException {
+        Gson gson = new Gson ();
+
+        HashMap<String, String> inputValues = new HashMap<>();
+        inputValues.put("id",Integer.toString(id));
+
+        HashMap<String, Object> inputData = new HashMap<>();
+        inputData.put("table","user");
+        inputData.put("values", inputValues);
+        String inputJson = gson.toJson(inputData);
+
+        var response = API.sendRequest(inputJson, "readOne");
+        if(response.body().equals("null")){
+            return null;
+        } else {
+            return gson.fromJson(response.body(),User.class);
+        }
+    }
+
     private boolean testReadAll() throws IOException, InterruptedException {
         String api_url = "http://localhost:4000/readAll";
         Gson gson = new Gson ();
