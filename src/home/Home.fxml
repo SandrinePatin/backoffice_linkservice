@@ -285,22 +285,22 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label contentDisplay="RIGHT" text="Nom" />
-                        <TextField promptText="Your Name" GridPane.columnIndex="1" />
+                        <Label contentDisplay="RIGHT" minWidth="-Infinity" text="Nom" />
+                        <TextField fx:id="tfName" minWidth="-Infinity" promptText="Your Name" GridPane.columnIndex="1" />
                         <Label text="Prénom" GridPane.rowIndex="1" />
-                        <TextField promptText="Your Surname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfSurname" minWidth="-Infinity" promptText="Your Surname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Email" GridPane.rowIndex="2" />
-                        <TextField promptText="Your Mail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="tfEmail" layoutX="20.0" layoutY="87.0" text="Email" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Date de Naissance" GridPane.rowIndex="3">
                            <padding>
                               <Insets right="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="BirthDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="dfBirthdate" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Adresse" GridPane.rowIndex="4" />
-                        <TextField promptText="Adress" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="tfAdress" minWidth="-Infinity" promptText="Adress" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="Ville" GridPane.rowIndex="5" />
-                        <TextField promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="tfCity" minWidth="-Infinity" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Button fx:id="btnModifyUser" mnemonicParsing="false" onAction="#handleClicks" text="Modifier" GridPane.columnSpan="2" GridPane.rowIndex="6" />
                      </children>
                      <padding>

@@ -8,7 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import Classes.User;
@@ -16,6 +18,12 @@ import Classes.User;
 import java.io.IOException;
 import java.lang.management.GarbageCollectorMXBean;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -27,45 +35,49 @@ public class Controller implements Initializable {
     private VBox pnItems = null;
     @FXML
     private Button btnOverview;
-
     @FXML
     private Button btnTickets;
-
     @FXML
     private Button btnUsers;
-
     @FXML
     private Button btnForum;
-
     @FXML
     private Button btnSettings;
-
     @FXML
     private Button btnServices;
-
     @FXML
     private Button btnSignout;
+    @FXML
+    private Button btnModifyUser;
 
     @FXML
     private Label userNameField;
 
     @FXML
     private Pane pnlUsers;
-
     @FXML
     private Pane pnlTickets;
-
     @FXML
     private Pane pnlOverview;
-
     @FXML
     private Pane pnlForum;
-
     @FXML
     private Pane pnlSettings;
-
     @FXML
     private Pane pnlServices;
+
+    @FXML
+    private TextField tfName;
+    @FXML
+    private TextField tfSurname;
+    @FXML
+    private Label tfEmail;
+    @FXML
+    private DatePicker dfBirthdate;
+    @FXML
+    private TextField tfAdress;
+    @FXML
+    private TextField tfCity;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -105,7 +117,7 @@ public class Controller implements Initializable {
     }
 
 
-    public void handleClicks(ActionEvent actionEvent) {
+    public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
         if (actionEvent.getSource() == btnUsers) {
             pnlUsers.setStyle("-fx-background-color : #E2E2E2");
             pnlUsers.toFront();
@@ -123,6 +135,7 @@ public class Controller implements Initializable {
             pnlTickets.toFront();
         }
         if (actionEvent.getSource() == btnSettings) {
+            loadUserData();
             pnlSettings.setStyle("-fx-background-color : #E2E2E2");
             pnlSettings.toFront();
         }
@@ -130,5 +143,52 @@ public class Controller implements Initializable {
             pnlServices.setStyle("-fx-background-color : #E2E2E2");
             pnlServices.toFront();
         }
+        if (actionEvent.getSource() == btnModifyUser) {
+            modifyUserInfos();
+
+        }
+    }
+
+    private void loadUserData(){
+        tfName.setPromptText(userConnected.getName());
+        tfSurname.setPromptText(userConnected.getSurname());
+        tfEmail.setText(userConnected.getEmail());
+        dfBirthdate.setPromptText(userConnected.getBirthdate());
+        tfAdress.setPromptText(userConnected.getAdress());
+        tfCity.setPromptText(userConnected.getCity());
+    }
+
+    private void modifyUserInfos() throws IOException, InterruptedException {
+        String newName = tfName.getText();
+        String newSurname = tfSurname.getText();
+        String newAdress = tfAdress.getText();
+        String newCity = tfCity.getText();
+        String newBirthDate;
+        LocalDate newBirthDateValue = dfBirthdate.getValue();
+
+        if(newName.equals("")){
+            newName = userConnected.getName();
+        }
+        if(newSurname.equals("")){
+            newSurname = userConnected.getSurname();
+        }
+        if(newAdress.equals("")){
+            newAdress = userConnected.getAdress();
+        }
+        if(newCity.equals("")){
+            newCity = userConnected.getCity();
+        }
+        if(newBirthDateValue == null){
+            newBirthDate = userConnected.getBirthdate();
+        } else {
+            Instant instant = Instant.from(newBirthDateValue.atStartOfDay(ZoneId.systemDefault()));
+            Date date = Date.from(instant);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            newBirthDate = dateFormat.format(date);
+        }
+
+        userConnected.updateUser(newName, newSurname, newBirthDate, newAdress, newCity);
+
+        System.out.println(newName);
     }
 }
