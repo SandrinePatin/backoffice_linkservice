@@ -1,6 +1,7 @@
 package home;
 
 import Classes.API;
+import Classes.Section;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ import Classes.User;
 import java.io.IOException;
 import java.lang.management.GarbageCollectorMXBean;
 import java.net.URL;
+import java.net.http.HttpResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -25,6 +27,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -33,6 +36,8 @@ public class Controller implements Initializable {
 
     @FXML
     private VBox pnItems = null;
+    @FXML
+    private VBox pnItemsSection = null;
     @FXML
     private Button btnOverview;
     @FXML
@@ -79,6 +84,7 @@ public class Controller implements Initializable {
     @FXML
     private TextField tfCity;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -123,6 +129,7 @@ public class Controller implements Initializable {
             pnlUsers.toFront();
         }
         if (actionEvent.getSource() == btnForum) {
+            loadSectionData();
             pnlForum.setStyle("-fx-background-color : #E2E2E2");
             pnlForum.toFront();
         }
@@ -156,6 +163,54 @@ public class Controller implements Initializable {
         dfBirthdate.setPromptText(userConnected.getBirthdate());
         tfAdress.setPromptText(userConnected.getAdress());
         tfCity.setPromptText(userConnected.getCity());
+    }
+
+    private void loadSectionData() throws IOException, InterruptedException {
+
+        if (pnItemsSection.getChildren().size() > 0){
+            pnItemsSection.getChildren().clear();
+        }
+
+        Gson gson = new Gson ();
+
+        HashMap<String, Object> inputData = new HashMap<>();
+        inputData.put("table","section");
+        String inputJson = gson.toJson(inputData);
+
+        HttpResponse<String> response = API.sendRequest(inputJson, "readAll");
+        HashMap<String, Section> sectionData = API.decodeResponseMultipleAsSection(response);
+
+
+        Node[] nodes = new Node[10];
+        for (int i = 0; i < sectionData.size(); i++) {
+            try {
+                final int j = i;
+
+                Section section = sectionData.get(Integer.toString(i));
+
+                int sectionId = section.getId();
+                String sectionName = section.getName();
+                String sectionDescription = section.getDescription();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ItemSection.fxml"));
+                nodes[i] = loader.load();
+
+                nodes[i].setId(Integer.toString(i));
+
+                ControllerItemSection controllerItemSection = loader.getController();
+                controllerItemSection.updateItemSection(sectionId, sectionName, sectionDescription);
+
+                nodes[i].setOnMouseEntered(event -> {
+                    nodes[j].setStyle("-fx-background-color : #A09B9B");
+                });
+                nodes[i].setOnMouseExited(event -> {
+                    nodes[j].setStyle("-fx-background-color : #E2E2E2");
+                });
+                pnItemsSection.getChildren().add(nodes[i]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void modifyUserInfos() throws IOException, InterruptedException {

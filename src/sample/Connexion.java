@@ -75,35 +75,6 @@ public class Connexion {
         }
     }
 
-    private boolean testReadAll() throws IOException, InterruptedException {
-        String api_url = "http://localhost:4000/readAll";
-        Gson gson = new Gson ();
-
-        HashMap<String, Object> inputData = new HashMap<>();
-        inputData.put("table","section");
-        String inputJson = gson.toJson(inputData);
-
-        var request = HttpRequest.newBuilder()
-                .uri(URI.create(api_url))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(inputJson))
-                .build();
-        var client = HttpClient.newHttpClient();
-        var response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println("Json de sorti (type string) :\n" + response.body());
-
-        HashMap<String, Object> retMap = new Gson().fromJson(
-                response.body(), new TypeToken<HashMap<String, Object>>() {}.getType()
-        );
-
-        System.out.println(retMap);
-
-        System.out.println(retMap.get("0"));
-
-
-        return true;
-    }
 
     private String passwordHash(String stringToHash) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
