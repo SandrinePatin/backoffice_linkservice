@@ -1,0 +1,10 @@
+#btnDeleteItem{
+    -fx-border-color :  #ff1c1c;
+    -fx-text-fill:  #ff1c1c;
+}
+
+#btnDeleteItem:hover{
+    -fx-border-color : #800e0e;
+    -fx-text-fill: #800e0e;
+
+}

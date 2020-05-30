@@ -39,6 +39,20 @@ public class Section {
         updateInDatabase("update");
     }
 
+    public void deleteSection() throws IOException, InterruptedException {
+        Gson gson = new Gson ();
+
+        HashMap<String, String> inputValues = new HashMap<>();
+        inputValues.put("id",Integer.toString(id));
+
+        HashMap<String, Object> inputData = new HashMap<>();
+        inputData.put("table","section");
+        inputData.put("values", inputValues);
+        String inputJson = gson.toJson(inputData);
+
+        var response = API.sendRequest(inputJson, "deleteOne");
+    }
+
     private void updateInDatabase(String action) throws IOException, InterruptedException {
         Gson gson = new Gson();
 

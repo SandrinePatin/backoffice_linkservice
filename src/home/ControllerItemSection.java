@@ -26,6 +26,8 @@ public class ControllerItemSection {
 
     @FXML
     private Button btnModifySection;
+    @FXML
+    private Button btnDeleteSection;
 
     public void updateItemSection(int id, String name, String description) {
         labelIdSection.setText(Integer.toString(id));
@@ -37,21 +39,31 @@ public class ControllerItemSection {
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
         if (actionEvent.getSource() == btnModifySection) {
+            loadNewWindow("../ModifyScreen/ModifySection.fxml", "LSB: Modification d'une Section", "modify");
+        }
+        if (actionEvent.getSource() == btnDeleteSection){
+            loadNewWindow("../ModifyScreen/DeleteItemWindow.fxml", "LSB: Supression d'une Section", "delete");
+        }
+    }
 
-            System.out.println(btnModifySection.getParent().getId());
+    public void loadNewWindow(String file, String title, String action) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(file)
+        );
 
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("../ModifyScreen/ModifySection.fxml")
-            );
+        Stage mainStage = new Stage();
+        mainStage.setTitle(title);
+        mainStage.setScene(new Scene((Pane) loader.load()));
 
-            Stage mainStage = new Stage();
-            mainStage.setTitle("LSB: Modification d'une Section");
-            mainStage.setScene(new Scene((Pane) loader.load()));
+        if(action.equals("modify")){
             ModifyScreen.ControllerModifySection controller = loader.getController();
             controller.loadSection(section);
-
-            mainStage.show();
+        } else if (action.equals("delete")){
+            ModifyScreen.ControllerDeleteItemWindow controller = loader.getController();
+            controller.loadItemToDelete("Rubrique => " + section.getName(), section);
         }
+
+        mainStage.show();
     }
 
 

@@ -54,8 +54,12 @@ public class Controller implements Initializable {
     private Button btnServices;
     @FXML
     private Button btnSignout;
+
+    //Settings
     @FXML
     private Button btnModifyUser;
+
+    //Section
     @FXML
     private Button btnCreateSection;
 
