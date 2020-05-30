@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import Classes.User;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.management.GarbageCollectorMXBean;
@@ -54,6 +56,8 @@ public class Controller implements Initializable {
     private Button btnSignout;
     @FXML
     private Button btnModifyUser;
+    @FXML
+    private Button btnCreateSection;
 
     @FXML
     private Label userNameField;
@@ -119,7 +123,6 @@ public class Controller implements Initializable {
 
         String fullName = userConnected.getName() + ' ' + userConnected.getSurname();
         userNameField.setText(fullName);
-
     }
 
 
@@ -152,11 +155,13 @@ public class Controller implements Initializable {
         }
         if (actionEvent.getSource() == btnModifyUser) {
             modifyUserInfos();
-
+        }
+        if (actionEvent.getSource() == btnCreateSection) {
+            createSection();
         }
     }
 
-    private void loadUserData(){
+    private void loadUserData() {
         tfName.setPromptText(userConnected.getName());
         tfSurname.setPromptText(userConnected.getSurname());
         tfEmail.setText(userConnected.getEmail());
@@ -167,14 +172,14 @@ public class Controller implements Initializable {
 
     private void loadSectionData() throws IOException, InterruptedException {
 
-        if (pnItemsSection.getChildren().size() > 0){
+        if (pnItemsSection.getChildren().size() > 0) {
             pnItemsSection.getChildren().clear();
         }
 
-        Gson gson = new Gson ();
+        Gson gson = new Gson();
 
         HashMap<String, Object> inputData = new HashMap<>();
-        inputData.put("table","section");
+        inputData.put("table", "section");
         String inputJson = gson.toJson(inputData);
 
         HttpResponse<String> response = API.sendRequest(inputJson, "readAll");
@@ -221,19 +226,19 @@ public class Controller implements Initializable {
         String newBirthDate;
         LocalDate newBirthDateValue = dfBirthdate.getValue();
 
-        if(newName.equals("")){
+        if (newName.equals("")) {
             newName = userConnected.getName();
         }
-        if(newSurname.equals("")){
+        if (newSurname.equals("")) {
             newSurname = userConnected.getSurname();
         }
-        if(newAdress.equals("")){
+        if (newAdress.equals("")) {
             newAdress = userConnected.getAdress();
         }
-        if(newCity.equals("")){
+        if (newCity.equals("")) {
             newCity = userConnected.getCity();
         }
-        if(newBirthDateValue == null){
+        if (newBirthDateValue == null) {
             newBirthDate = userConnected.getBirthdate();
         } else {
             Instant instant = Instant.from(newBirthDateValue.atStartOfDay(ZoneId.systemDefault()));
@@ -243,7 +248,19 @@ public class Controller implements Initializable {
         }
 
         userConnected.updateUser(newName, newSurname, newBirthDate, newAdress, newCity);
+    }
 
-        System.out.println(newName);
+    private void createSection() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("../ModifyScreen/ModifySection.fxml")
+        );
+
+        Stage mainStage = new Stage();
+        mainStage.setTitle("LSB: Création d'une Section");
+        mainStage.setScene(new Scene((Pane) loader.load()));
+        ModifyScreen.ControllerModifySection controller = loader.getController();
+        controller.loadCreateWindow();
+
+        mainStage.show();
     }
 }

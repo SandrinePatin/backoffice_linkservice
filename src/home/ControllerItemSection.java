@@ -45,7 +45,7 @@ public class ControllerItemSection {
             );
 
             Stage mainStage = new Stage();
-            mainStage.setTitle("LinkService Backoffice");
+            mainStage.setTitle("LSB: Modification d'une Section");
             mainStage.setScene(new Scene((Pane) loader.load()));
             ModifyScreen.ControllerModifySection controller = loader.getController();
             controller.loadSection(section);

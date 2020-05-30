@@ -41,3 +41,13 @@
 .scroll-pane > .corner {
     -fx-background-color: #E2E2E2;
 }
+
+#btnCreateSection{
+    -fx-text-fill: #49c935;
+    -fx-border-color: #49c935;
+}
+
+#btnCreateSection:hover {
+    -fx-text-fill: #226117;
+    -fx-border-color: #226117;
+}
