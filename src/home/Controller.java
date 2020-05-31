@@ -163,6 +163,26 @@ public class Controller implements Initializable {
         if (actionEvent.getSource() == btnCreateSection) {
             createSection();
         }
+        if (actionEvent.getSource() == btnSignout) {
+            confirmDisconnection();
+        }
+    }
+
+    private void confirmDisconnection() throws IOException {
+        Stage primaryStage = (Stage) btnSignout.getScene().getWindow();
+
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("../home/disconnectionConfirm.fxml")
+        );
+
+        Stage mainStage = new Stage();
+        mainStage.setTitle("LinkService Backoffice");
+        mainStage.setScene(new Scene((Pane) loader.load()));
+        home.DisconnectionConfirm controller = loader.getController();
+        controller.initWindow(primaryStage);
+
+        mainStage.show();
+
     }
 
     private void loadUserData() {
