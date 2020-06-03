@@ -33,7 +33,7 @@ public class ControllerItemType {
     @FXML
     private Button btnDeleteType;
 
-    public void updateItemSection(int id, String name, String description, String image) {
+    public void loadItem(int id, String name, String description, String image) {
         labelIdType.setText(Integer.toString(id));
         labelNameType.setText(name);
         labelDescriptionType.setText(description);

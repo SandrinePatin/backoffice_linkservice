@@ -5,6 +5,7 @@ import Classes.Section;
 import Classes.TypeService;
 import Items.ControllerItemSection;
 import Items.ControllerItemType;
+import Items.ControllerItemUser;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,6 +44,8 @@ public class Controller <O, C> implements Initializable {
     private VBox pnItemsSection = null;
     @FXML
     private VBox pnItemsTypes = null;
+    @FXML
+    private VBox pnItemsUser = null;
     @FXML
     private Button btnOverview;
     @FXML
@@ -143,6 +146,7 @@ public class Controller <O, C> implements Initializable {
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
         if (actionEvent.getSource() == btnUsers) {
+            loadTableUsersData();
             pnlUsers.setStyle("-fx-background-color : #E2E2E2");
             pnlUsers.toFront();
         }
@@ -219,7 +223,7 @@ public class Controller <O, C> implements Initializable {
         HttpResponse<String> response = getData("section");
         HashMap<String, Section> sectionData = new HashMap<>();
 
-        if(response.body().substring(2,3).equals("i")){
+        if(response.body().startsWith("i", 2)){
             sectionData.put("0",gson.fromJson(response.body(), Section.class));
         } else {
             sectionData = API.decodeResponseMultipleAsSection(response);
@@ -269,7 +273,7 @@ public class Controller <O, C> implements Initializable {
         HttpResponse<String> response = getData("type_service");
         HashMap<String, TypeService> typeData = new HashMap<>();
 
-        if(response.body().substring(2,3).equals("i")){
+        if(response.body().startsWith("i", 2)){
             typeData.put("0",gson.fromJson(response.body(), TypeService.class));
         } else {
             typeData = API.decodeResponseMultipleAsTypeService(response);
@@ -293,7 +297,7 @@ public class Controller <O, C> implements Initializable {
                     nodes[i].setId(Integer.toString(i));
 
                     ControllerItemType controllerItemType = loader.getController();
-                    controllerItemType.updateItemSection(typeId, typeName, typeDescription, typeImage);
+                    controllerItemType.loadItem(typeId, typeName, typeDescription, typeImage);
 
                     nodes[i].setOnMouseEntered(event -> {
                         nodes[j].setStyle("-fx-background-color : #A09B9B");
@@ -310,6 +314,51 @@ public class Controller <O, C> implements Initializable {
             //TODO : no item to display
         }
 
+    }
+
+    private void loadTableUsersData() throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        clearPane(pnItemsUser);
+
+        HttpResponse<String> response = getData("user");
+        HashMap<String, User> typeData = new HashMap<>();
+
+        if(response.body().startsWith("i", 2)){
+            typeData.put("0",gson.fromJson(response.body(), User.class));
+        } else {
+            typeData = API.decodeResponseMultipleAsUser(response);
+        }
+
+        if(typeData != null){
+            Node[] nodes = new Node[10];
+            for (int i = 0; i < typeData.size(); i++) {
+                try {
+                    final int j = i;
+
+                    User user = typeData.get(Integer.toString(i));
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemUser.fxml"));
+                    nodes[i] = loader.load();
+
+                    nodes[i].setId(Integer.toString(i));
+
+                    ControllerItemUser controllerItemUser = loader.getController();
+                    controllerItemUser.loadItem(user);
+
+                    nodes[i].setOnMouseEntered(event -> {
+                        nodes[j].setStyle("-fx-background-color : #A09B9B");
+                    });
+                    nodes[i].setOnMouseExited(event -> {
+                        nodes[j].setStyle("-fx-background-color : #E2E2E2");
+                    });
+                    pnItemsUser.getChildren().add(nodes[i]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            //TODO : no item to display
+        }
     }
 
     private HttpResponse<String> getData(String table) throws IOException, InterruptedException {

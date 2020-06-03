@@ -11,6 +11,7 @@ public class User {
     private String name;
     private String surname;
     private String birthdate;
+    private int points;
     private String adress;
     private String city;
     private String type;
@@ -19,12 +20,13 @@ public class User {
         id = idUser;
     }
 
-    public User(int idUser, String e, String p, String n, String s, String b, String a, String c, String t){
+    public User(int idUser, String e, String n, String s, String b, int p, String a, String c, String t){
         id = idUser;
         email = e;
         name = n;
         surname = s;
         birthdate = b.substring(0,10);
+        points = p;
         adress = a;
         city = c;
         type = t;
@@ -53,6 +55,8 @@ public class User {
     public String getAdress() { return adress; }
 
     public String getCity() { return city; }
+
+    public int getPoints() { return points; }
 
     public void updateUser(String newName, String newSurname, String newBirthdate, String newAdress, String newCity) throws IOException, InterruptedException {
         name = newName;
