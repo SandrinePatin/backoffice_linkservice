@@ -46,6 +46,13 @@ public class API {
         return retMap;
     }
 
+    public static HashMap<String, Service> decodeResponseMultipleAsService(HttpResponse<String> response) {
+        HashMap<String, Service> retMap = new Gson().fromJson(
+                response.body(), new TypeToken<HashMap<String, Service>>() {}.getType()
+        );
+        return retMap;
+    }
+
     private boolean testReadAll() throws IOException, InterruptedException {
         String api_url = "http://localhost:4000/readAll";
         Gson gson = new Gson ();

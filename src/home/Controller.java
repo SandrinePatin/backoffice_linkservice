@@ -1,9 +1,8 @@
 package home;
 
-import Classes.API;
-import Classes.Section;
-import Classes.TypeService;
+import Classes.*;
 import Items.ControllerItemSection;
+import Items.ControllerItemService;
 import Items.ControllerItemType;
 import Items.ControllerItemUser;
 import com.google.gson.Gson;
@@ -19,7 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import Classes.User;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -47,6 +45,8 @@ public class Controller <O, C> implements Initializable {
     private VBox pnItemsTypes = null;
     @FXML
     private VBox pnItemsUser = null;
+    @FXML
+    private VBox pnItemsService = null;
     @FXML
     private Button btnOverview;
     @FXML
@@ -170,6 +170,7 @@ public class Controller <O, C> implements Initializable {
             pnlSettings.toFront();
         }
         if (actionEvent.getSource() == btnServices) {
+            loadServiceData();
             pnlServices.setStyle("-fx-background-color : #E2E2E2");
             pnlServices.toFront();
         }
@@ -308,7 +309,6 @@ public class Controller <O, C> implements Initializable {
     }
 
     private void loadTableUsersData() throws IOException, InterruptedException {
-        Gson gson = new Gson();
         clearPane(pnItemsUser);
 
         HttpResponse<String> response = getData("user");
@@ -343,6 +343,50 @@ public class Controller <O, C> implements Initializable {
                         nodes[j].setStyle("-fx-background-color : #E2E2E2");
                     });
                     pnItemsUser.getChildren().add(nodes[i]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            //TODO : no item to display
+        }
+    }
+
+    private void loadServiceData() throws IOException, InterruptedException {
+        clearPane(pnItemsService);
+
+        HttpResponse<String> response = getData("service");
+        HashMap<String, Service> ServicesData = new HashMap<>();
+
+        if(response.body().startsWith("i", 2)){
+            ServicesData.put("0",gson.fromJson(response.body(), Service.class));
+        } else {
+            ServicesData = API.decodeResponseMultipleAsService(response);
+        }
+
+        if(ServicesData != null){
+            Node[] nodes = new Node[10];
+            for (int i = 0; i < ServicesData.size(); i++) {
+                try {
+                    final int j = i;
+
+                    Service service = ServicesData.get(Integer.toString(i));
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemService.fxml"));
+                    nodes[i] = loader.load();
+
+                    nodes[i].setId(Integer.toString(i));
+
+                    ControllerItemService controller = loader.getController();
+                    controller.loadItem(service);
+
+                    nodes[i].setOnMouseEntered(event -> {
+                        nodes[j].setStyle("-fx-background-color : #A09B9B");
+                    });
+                    nodes[i].setOnMouseExited(event -> {
+                        nodes[j].setStyle("-fx-background-color : #E2E2E2");
+                    });
+                    pnItemsService.getChildren().add(nodes[i]);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

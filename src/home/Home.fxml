@@ -220,35 +220,37 @@
                      <font>
                         <Font size="24.0" />
                      </font></Label>
-                  <HBox alignment="CENTER_LEFT" layoutX="45.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="80.0" style="-fx-background-color: #E2E2E2;">
+                  <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="30.0" style="-fx-background-color: #E2E2E2;">
                      <children>
-                        <Label text="Company Name" textFill="#727070">
+                        <Label text="Id" textFill="#727070">
                            <HBox.margin>
                               <Insets left="50.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="Airport" textFill="#727070">
+                        <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" text="Nom" textFill="#727070">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Label>
-                        <Label text="Delivery Date" textFill="#727070">
+                        <Label prefWidth="150.0" text="Date" textFill="#727070">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Label>
-                        <Label text="Amount" textFill="#727070">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
-                        <Label text="Status" textFill="#727070">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
+                        <Label layoutX="511.0" layoutY="23.0" prefWidth="65.0" text="Type" textFill="#727070" />
+                        <Label layoutX="231.0" layoutY="23.0" prefWidth="75.0" text="Creator" textFill="#727070" />
+                        <Label layoutX="257.0" layoutY="23.0" prefHeight="100.0" text="Action" textFill="#727070" />
                      </children>
                   </HBox>
+                  <ScrollPane fx:id="pnItemService" layoutX="14.0" layoutY="160.0" prefWidth="746.0" stylesheets="@style.css">
+                     <content>
+                        <VBox fx:id="pnItemsService" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #E2E2E2;">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
                </children></Pane>
             <Pane fx:id="pnlUsers" prefHeight="200.0" prefWidth="200.0">
                <children>

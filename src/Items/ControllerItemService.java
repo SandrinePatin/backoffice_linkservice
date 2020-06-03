@@ -1,6 +1,6 @@
 package Items;
 
-import Classes.User;
+import Classes.Service;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,32 +14,34 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerItemUser {
-
-    private User user;
-
-    @FXML
-    private Label labelIdUser;
-    @FXML
-    private Label labelEmailUser;
-    @FXML
-    private Label labelPointsUser;
-    @FXML
-    private Label labelTypeUser;
+public class ControllerItemService {
+    private Service service;
 
     @FXML
-    private Button btnDeleteUser;
+    private Label labelIdService;
+    @FXML
+    private Label labelNameService;
+    @FXML
+    private Label labelDateService;
+    @FXML
+    private Label labelTypeService;
+    @FXML
+    private Label labelCreatorService;
 
-    public void loadItem(User u) {
-        user = u;
-        labelIdUser.setText(Integer.toString(user.getId()));
-        labelEmailUser.setText(user.getEmail());
-        labelPointsUser.setText(Integer.toString(user.getPoints()));
-        labelTypeUser.setText(user.getType());
+    @FXML
+    private Button btnDeleteService;
+
+    public void loadItem(Service s) {
+        service = s;
+        labelIdService.setText(Integer.toString(service.getId()));
+        labelNameService.setText(service.getName());
+        labelDateService.setText(service.getDate());
+        labelTypeService.setText(Integer.toString(service.getId_type()));
+        labelCreatorService.setText(Integer.toString(service.getId_creator()));
     }
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
-        if (actionEvent.getSource() == btnDeleteUser){
+        if (actionEvent.getSource() == btnDeleteService){
             loadNewWindow("../ModifyScreen/DeleteItemWindow.fxml", "LSB: Supression d'un utilisateur", "delete");
         }
     }
@@ -54,15 +56,13 @@ public class ControllerItemUser {
         mainStage.setScene(new Scene((Pane) loader.load()));
 
         ModifyScreen.ControllerDeleteItemWindow controller = loader.getController();
-        controller.loadItemToDelete("Utilisateur => " + user.getEmail(), user.getId(), "user");
+        controller.loadItemToDelete("Utilisateur => " + service.getName(), service.getId(), "service");
 
 
         mainStage.show();
     }
 
-
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-
 }
