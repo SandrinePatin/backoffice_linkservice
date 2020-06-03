@@ -2,6 +2,9 @@ package home;
 
 import Classes.API;
 import Classes.Section;
+import Classes.TypeService;
+import Items.ControllerItemSection;
+import Items.ControllerItemType;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +22,6 @@ import Classes.User;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.management.GarbageCollectorMXBean;
 import java.net.URL;
 import java.net.http.HttpResponse;
 import java.text.DateFormat;
@@ -29,10 +31,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class Controller <O, C> implements Initializable {
 
     private User userConnected;
 
@@ -40,6 +41,8 @@ public class Controller implements Initializable {
     private VBox pnItems = null;
     @FXML
     private VBox pnItemsSection = null;
+    @FXML
+    private VBox pnItemsTypes = null;
     @FXML
     private Button btnOverview;
     @FXML
@@ -52,6 +55,8 @@ public class Controller implements Initializable {
     private Button btnSettings;
     @FXML
     private Button btnServices;
+    @FXML
+    private Button btnTypesServices;
     @FXML
     private Button btnSignout;
 
@@ -66,6 +71,10 @@ public class Controller implements Initializable {
     @FXML
     private Label userNameField;
 
+    //Type
+    @FXML
+    private Button btnCreateType;
+
     @FXML
     private Pane pnlUsers;
     @FXML
@@ -78,6 +87,8 @@ public class Controller implements Initializable {
     private Pane pnlSettings;
     @FXML
     private Pane pnlServices;
+    @FXML
+    private Pane pnlTypesServices;
 
     @FXML
     private TextField tfName;
@@ -157,11 +168,19 @@ public class Controller implements Initializable {
             pnlServices.setStyle("-fx-background-color : #E2E2E2");
             pnlServices.toFront();
         }
+        if (actionEvent.getSource() == btnTypesServices) {
+            loadTypeData();
+            pnlTypesServices.setStyle("-fx-background-color : #E2E2E2");
+            pnlTypesServices.toFront();
+        }
         if (actionEvent.getSource() == btnModifyUser) {
             modifyUserInfos();
         }
         if (actionEvent.getSource() == btnCreateSection) {
-            createSection();
+            loadCreateWindow("section", "../ModifyScreen/ModifySection.fxml", "LSB: Création d'une Section");
+        }
+        if (actionEvent.getSource() == btnCreateType) {
+            loadCreateWindow("type", "../ModifyScreen/ModifyType.fxml", "LSB: Création d'un Type de service");
         }
         if (actionEvent.getSource() == btnSignout) {
             confirmDisconnection();
@@ -182,7 +201,6 @@ public class Controller implements Initializable {
         controller.initWindow(primaryStage);
 
         mainStage.show();
-
     }
 
     private void loadUserData() {
@@ -195,51 +213,113 @@ public class Controller implements Initializable {
     }
 
     private void loadSectionData() throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        clearPane(pnItemsSection);
 
-        if (pnItemsSection.getChildren().size() > 0) {
-            pnItemsSection.getChildren().clear();
+        HttpResponse<String> response = getData("section");
+        HashMap<String, Section> sectionData = new HashMap<>();
+
+        if(response.body().substring(2,3).equals("i")){
+            sectionData.put("0",gson.fromJson(response.body(), Section.class));
+        } else {
+            sectionData = API.decodeResponseMultipleAsSection(response);
         }
 
+        if(sectionData != null){
+            Node[] nodes = new Node[10];
+            for (int i = 0; i < sectionData.size(); i++) {
+                try {
+                    final int j = i;
+
+                    Section section = sectionData.get(Integer.toString(i));
+
+                    int sectionId = section.getId();
+                    String sectionName = section.getName();
+                    String sectionDescription = section.getDescription();
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemSection.fxml"));
+                    nodes[i] = loader.load();
+
+                    nodes[i].setId(Integer.toString(i));
+
+                    ControllerItemSection controllerItemSection = loader.getController();
+                    controllerItemSection.updateItemSection(sectionId, sectionName, sectionDescription);
+
+                    nodes[i].setOnMouseEntered(event -> {
+                        nodes[j].setStyle("-fx-background-color : #A09B9B");
+                    });
+                    nodes[i].setOnMouseExited(event -> {
+                        nodes[j].setStyle("-fx-background-color : #E2E2E2");
+                    });
+                    pnItemsSection.getChildren().add(nodes[i]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            //TODO if no section to display
+        }
+
+    }
+
+    private void loadTypeData() throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        clearPane(pnItemsTypes);
+
+        HttpResponse<String> response = getData("type_service");
+        HashMap<String, TypeService> typeData = new HashMap<>();
+
+        if(response.body().substring(2,3).equals("i")){
+            typeData.put("0",gson.fromJson(response.body(), TypeService.class));
+        } else {
+            typeData = API.decodeResponseMultipleAsTypeService(response);
+        }
+
+        if(typeData != null){
+            Node[] nodes = new Node[10];
+            for (int i = 0; i < typeData.size(); i++) {
+                try {
+                    final int j = i;
+
+                    TypeService type = typeData.get(Integer.toString(i));
+                    int typeId = type.getId();
+                    String typeName = type.getName();
+                    String typeDescription = type.getDescription();
+                    String typeImage = type.getImage();
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemType.fxml"));
+                    nodes[i] = loader.load();
+
+                    nodes[i].setId(Integer.toString(i));
+
+                    ControllerItemType controllerItemType = loader.getController();
+                    controllerItemType.updateItemSection(typeId, typeName, typeDescription, typeImage);
+
+                    nodes[i].setOnMouseEntered(event -> {
+                        nodes[j].setStyle("-fx-background-color : #A09B9B");
+                    });
+                    nodes[i].setOnMouseExited(event -> {
+                        nodes[j].setStyle("-fx-background-color : #E2E2E2");
+                    });
+                    pnItemsTypes.getChildren().add(nodes[i]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            //TODO : no item to display
+        }
+
+    }
+
+    private HttpResponse<String> getData(String table) throws IOException, InterruptedException {
         Gson gson = new Gson();
 
         HashMap<String, Object> inputData = new HashMap<>();
-        inputData.put("table", "section");
+        inputData.put("table", table);
         String inputJson = gson.toJson(inputData);
 
-        HttpResponse<String> response = API.sendRequest(inputJson, "readAll");
-        HashMap<String, Section> sectionData = API.decodeResponseMultipleAsSection(response);
-
-
-        Node[] nodes = new Node[10];
-        for (int i = 0; i < sectionData.size(); i++) {
-            try {
-                final int j = i;
-
-                Section section = sectionData.get(Integer.toString(i));
-
-                int sectionId = section.getId();
-                String sectionName = section.getName();
-                String sectionDescription = section.getDescription();
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("ItemSection.fxml"));
-                nodes[i] = loader.load();
-
-                nodes[i].setId(Integer.toString(i));
-
-                ControllerItemSection controllerItemSection = loader.getController();
-                controllerItemSection.updateItemSection(sectionId, sectionName, sectionDescription);
-
-                nodes[i].setOnMouseEntered(event -> {
-                    nodes[j].setStyle("-fx-background-color : #A09B9B");
-                });
-                nodes[i].setOnMouseExited(event -> {
-                    nodes[j].setStyle("-fx-background-color : #E2E2E2");
-                });
-                pnItemsSection.getChildren().add(nodes[i]);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        return API.sendRequest(inputJson, "readAll");
     }
 
     private void modifyUserInfos() throws IOException, InterruptedException {
@@ -274,17 +354,28 @@ public class Controller implements Initializable {
         userConnected.updateUser(newName, newSurname, newBirthDate, newAdress, newCity);
     }
 
-    private void createSection() throws IOException {
+    private void loadCreateWindow(String object, String window, String title) throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("../ModifyScreen/ModifySection.fxml")
+                getClass().getResource(window)
         );
 
         Stage mainStage = new Stage();
-        mainStage.setTitle("LSB: Création d'une Section");
+        mainStage.setTitle(title);
         mainStage.setScene(new Scene((Pane) loader.load()));
-        ModifyScreen.ControllerModifySection controller = loader.getController();
-        controller.loadCreateWindow();
-
+        if(object.equals("section")){
+            ModifyScreen.ControllerModifySection controller = loader.getController();
+            controller.loadCreateWindow();
+        } else if (object.equals("type")){
+            ModifyScreen.ControllerModifyType controller = loader.getController();
+            controller.loadCreateWindow();
+        }
         mainStage.show();
     }
+
+    private void clearPane(Pane paneToClear){
+        if (paneToClear.getChildren().size() > 0) {
+            paneToClear.getChildren().clear();
+        }
+    }
+
 }

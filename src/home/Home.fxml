@@ -65,7 +65,19 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="btnServices" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Services">
+            <Button fx:id="btnTypesServices" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Types de Services">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Services_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnServices" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Services">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -117,6 +129,50 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #E2E2E2;">
          <children>
+            <Pane fx:id="pnlTypesServices" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="57.0" layoutY="25.0" text="Type de Services" textFill="#686565">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Button id="btnCreateSection" fx:id="btnCreateType" layoutX="60.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Créer un type de Service" textFill="#49c935">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="30.0" style="-fx-background-color: #E2E2E2;">
+                     <children>
+                        <Label text="Id" textFill="#727070">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" text="Nom" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label prefWidth="200.0" text="Description" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label layoutX="231.0" layoutY="23.0" prefWidth="100.0" text="Image" textFill="#727070" />
+                        <Label layoutX="257.0" layoutY="23.0" text="Action" textFill="#727070" />
+                     </children>
+                  </HBox>
+                  <ScrollPane fx:id="pnItemTypes" layoutX="14.0" layoutY="160.0" prefHeight="370.0" prefWidth="746.0" stylesheets="@style.css">
+                     <content>
+                        <VBox fx:id="pnItemsTypes" prefHeight="318.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #E2E2E2;">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
             <Pane fx:id="pnlForum" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="57.0" layoutY="25.0" text="Forum" textFill="#686565">

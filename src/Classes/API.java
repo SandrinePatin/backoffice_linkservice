@@ -30,6 +30,14 @@ public class API {
         return retMap;
     }
 
+    public static HashMap<String, TypeService> decodeResponseMultipleAsTypeService (HttpResponse<String> response){
+
+        HashMap<String, TypeService> retMap = new Gson().fromJson(
+                response.body(), new TypeToken<HashMap<String, TypeService>>() {}.getType()
+        );
+        return retMap;
+    }
+
     private boolean testReadAll() throws IOException, InterruptedException {
         String api_url = "http://localhost:4000/readAll";
         Gson gson = new Gson ();

@@ -1,4 +1,4 @@
-package home;
+package Items;
 
 import Classes.Section;
 import javafx.event.ActionEvent;
@@ -60,7 +60,7 @@ public class ControllerItemSection {
             controller.loadSection(section);
         } else if (action.equals("delete")){
             ModifyScreen.ControllerDeleteItemWindow controller = loader.getController();
-            controller.loadItemToDelete("Rubrique => " + section.getName(), section);
+            controller.loadItemToDelete("Rubrique => " + section.getName(), section.getId(), "section");
         }
 
         mainStage.show();

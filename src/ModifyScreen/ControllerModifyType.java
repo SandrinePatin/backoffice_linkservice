@@ -1,29 +1,26 @@
 package ModifyScreen;
 
-import Classes.Section;
+import Classes.TypeService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerModifySection {
-    Section actualSection;
+public class ControllerModifyType {
+    TypeService actualType;
 
     @FXML
-    private TextField tfNameModifySection;
+    private TextField tfNameModifyType;
     @FXML
-    private TextArea tfDescriptionModifySection;
+    private TextArea tfDescriptionModifyType;
+    @FXML
+    private TextArea tfImageModifyType;
 
     @FXML
     private Button btnModifySectionData;
@@ -34,10 +31,10 @@ public class ControllerModifySection {
     public void initialize(URL location, ResourceBundle resources) {
     }
 
-    public void loadSection(Section section) {
-        actualSection = section;
-        tfNameModifySection.setPromptText(section.getName());
-        tfDescriptionModifySection.setPromptText(section.getDescription());
+    public void loadSection(TypeService typeService) {
+        actualType = typeService;
+        tfNameModifyType.setPromptText(typeService.getName());
+        tfDescriptionModifyType.setPromptText(typeService.getDescription());
 
         btnCreateSectionData.setVisible(false);
         btnModifySectionData.setVisible(true);
@@ -57,45 +54,53 @@ public class ControllerModifySection {
         }
         if (actionEvent.getSource() == btnCreateSectionData) {
 
-            createSection();
+            createType();
         }
     }
 
     private void updateSection() throws IOException, InterruptedException {
-        String newName = tfNameModifySection.getText();
-        String newDescription = tfDescriptionModifySection.getText();
+        String newName = tfNameModifyType.getText();
+        String newDescription = tfDescriptionModifyType.getText();
+        String newImage = tfImageModifyType.getText();
 
         if (newName.equals("")) {
-            newName = actualSection.getName();
+            newName = actualType.getName();
         }
         if (newDescription.equals("")) {
-            newDescription = actualSection.getDescription();
+            newDescription = actualType.getDescription();
+        }
+        if(newImage.equals("")) {
+            newImage = actualType.getImage();
         }
 
-        actualSection.updateSection(newName, newDescription);
+        actualType.updateType(newName, newDescription, newImage);
     }
 
-    private void createSection() throws IOException, InterruptedException {
+    private void createType() throws IOException, InterruptedException {
         boolean error = false;
-        String newName = tfNameModifySection.getText();
-        String newDescription = tfDescriptionModifySection.getText();
+        String newName = tfNameModifyType.getText();
+        String newDescription = tfDescriptionModifyType.getText();
+        String newImage = tfImageModifyType.getText();
 
-        actualSection = new Section(0, newName, newDescription);
+        actualType = new TypeService(0, newName, newDescription, newImage);
 
         if (newName.equals("")) {
-            tfNameModifySection.setStyle("-fx-border-color: red");
+            tfNameModifyType.setStyle("-fx-border-color: red");
             error = true;
         }
         if (newDescription.equals("")) {
-            tfDescriptionModifySection.setStyle("-fx-border-color: red");
+            tfDescriptionModifyType.setStyle("-fx-border-color: red");
             error = true;
         }
-        if (error != true) {
-            actualSection.createSection();
+        if (newImage.equals("")) {
+            tfDescriptionModifyType.setStyle("-fx-border-color: red");
+            error = true;
+        }
+        if (!error) {
+            actualType.createType();
             Stage primaryStage = (Stage) btnCreateSectionData.getScene().getWindow();
             primaryStage.close();
         }
 
     }
-
 }

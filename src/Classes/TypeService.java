@@ -5,15 +5,17 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class Section {
+public class TypeService {
     private int id;
     private String name;
     private String description;
+    private String picture;
 
-    public Section(int idSection, String n, String d) {
+    public TypeService(int idSection, String n, String d, String i) {
         id = idSection;
         name = n;
         description = d;
+        picture = i;
     }
 
     public int getId() {
@@ -28,18 +30,22 @@ public class Section {
         return description;
     }
 
-    public void createSection() throws IOException, InterruptedException {
+    public String getImage() { return picture; }
+
+    public void createType() throws IOException, InterruptedException {
+
         updateInDatabase("create");
     }
 
-    public void updateSection(String newName, String newDescription) throws IOException, InterruptedException {
+    public void updateType(String newName, String newDescription, String newPicture) throws IOException, InterruptedException {
         name = newName;
         description = newDescription;
+        picture = newPicture;
 
         updateInDatabase("update");
     }
 
-    public void deleteSection() throws IOException, InterruptedException {
+    public void deleteType() throws IOException, InterruptedException {
         updateInDatabase("deleteOne");
 
     }
@@ -50,6 +56,7 @@ public class Section {
         if(action.equals("create") || action.equals("update")){
             inputValues.put("name", name);
             inputValues.put("description", description);
+            inputValues.put("picture", picture);
         }
 
         if (action.equals("update") || action.equals("delete")) {
@@ -57,12 +64,11 @@ public class Section {
         }
 
         HashMap<String, Object> inputData = new HashMap<>();
-        inputData.put("table", "section");
+        inputData.put("table", "type_service");
         inputData.put("values", inputValues);
         String inputJson = gson.toJson(inputData);
 
         var response = API.sendRequest(inputJson, action);
-
         //TODO: if API is disconnected
     }
 }
