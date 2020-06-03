@@ -33,13 +33,12 @@ public class ControllerItemType {
     @FXML
     private Button btnDeleteType;
 
-    public void loadItem(int id, String name, String description, String image) {
-        labelIdType.setText(Integer.toString(id));
-        labelNameType.setText(name);
-        labelDescriptionType.setText(description);
-        labelImageType.setText(image);
-
-        typeService = new TypeService(id, name, description, image);
+    public void loadItem(TypeService t) {
+        typeService = t;
+        labelIdType.setText(Integer.toString(t.getId()));
+        labelNameType.setText(t.getName());
+        labelDescriptionType.setText(t.getDescription());
+        labelImageType.setText(t.getImage());
     }
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {

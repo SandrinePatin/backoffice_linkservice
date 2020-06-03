@@ -37,6 +37,7 @@ import java.util.ResourceBundle;
 public class Controller <O, C> implements Initializable {
 
     private User userConnected;
+    private Gson gson = new Gson();
 
     @FXML
     private VBox pnItems = null;
@@ -136,7 +137,7 @@ public class Controller <O, C> implements Initializable {
 
     }
 
-    public void initData(User sessionUser) throws IOException, InterruptedException {
+    public void initData(User sessionUser){
         userConnected = sessionUser;
 
         String fullName = userConnected.getName() + ' ' + userConnected.getSurname();
@@ -217,7 +218,6 @@ public class Controller <O, C> implements Initializable {
     }
 
     private void loadSectionData() throws IOException, InterruptedException {
-        Gson gson = new Gson();
         clearPane(pnItemsSection);
 
         HttpResponse<String> response = getData("section");
@@ -237,17 +237,13 @@ public class Controller <O, C> implements Initializable {
 
                     Section section = sectionData.get(Integer.toString(i));
 
-                    int sectionId = section.getId();
-                    String sectionName = section.getName();
-                    String sectionDescription = section.getDescription();
-
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemSection.fxml"));
                     nodes[i] = loader.load();
 
                     nodes[i].setId(Integer.toString(i));
 
                     ControllerItemSection controllerItemSection = loader.getController();
-                    controllerItemSection.updateItemSection(sectionId, sectionName, sectionDescription);
+                    controllerItemSection.updateItemSection(section);
 
                     nodes[i].setOnMouseEntered(event -> {
                         nodes[j].setStyle("-fx-background-color : #A09B9B");
@@ -267,7 +263,6 @@ public class Controller <O, C> implements Initializable {
     }
 
     private void loadTypeData() throws IOException, InterruptedException {
-        Gson gson = new Gson();
         clearPane(pnItemsTypes);
 
         HttpResponse<String> response = getData("type_service");
@@ -286,10 +281,6 @@ public class Controller <O, C> implements Initializable {
                     final int j = i;
 
                     TypeService type = typeData.get(Integer.toString(i));
-                    int typeId = type.getId();
-                    String typeName = type.getName();
-                    String typeDescription = type.getDescription();
-                    String typeImage = type.getImage();
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemType.fxml"));
                     nodes[i] = loader.load();
@@ -297,7 +288,7 @@ public class Controller <O, C> implements Initializable {
                     nodes[i].setId(Integer.toString(i));
 
                     ControllerItemType controllerItemType = loader.getController();
-                    controllerItemType.loadItem(typeId, typeName, typeDescription, typeImage);
+                    controllerItemType.loadItem(type);
 
                     nodes[i].setOnMouseEntered(event -> {
                         nodes[j].setStyle("-fx-background-color : #A09B9B");

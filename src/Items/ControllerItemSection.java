@@ -29,12 +29,11 @@ public class ControllerItemSection {
     @FXML
     private Button btnDeleteSection;
 
-    public void updateItemSection(int id, String name, String description) {
-        labelIdSection.setText(Integer.toString(id));
-        labelNameSection.setText(name);
-        labelDescriptionSection.setText(description);
-
-        section = new Section(id, name, description);
+    public void updateItemSection(Section s) {
+        section = s;
+        labelIdSection.setText(Integer.toString(s.getId()));
+        labelNameSection.setText(s.getName());
+        labelDescriptionSection.setText(s.getDescription());
     }
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
