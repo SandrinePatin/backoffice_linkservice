@@ -85,9 +85,15 @@ public class User {
         inputValues.put("surname",surname);
         inputValues.put("birthdate",birthdate);
         inputValues.put("type",type);
-        System.out.println("miam createUser");
         updateInDatabase(inputValues, "create");
 
+    }
+
+    public void modifyPassword(String pwd) throws NoSuchAlgorithmException, IOException, InterruptedException {
+        HashMap<String, String> inputValues = new HashMap<>();
+        inputValues.put("password",API.passwordHash(pwd));
+        inputValues.put("id", Integer.toString(id));
+        updateInDatabase(inputValues, "update");
     }
 
     private static void updateInDatabase(HashMap<String, String> inputValues, String action) throws IOException, InterruptedException {

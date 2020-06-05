@@ -32,10 +32,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class Controller <O, C> implements Initializable {
+public class Controller implements Initializable {
 
     private User userConnected;
-    private Gson gson = new Gson();
+    private final Gson gson = new Gson();
 
     @FXML
     private VBox pnItems = null;
@@ -67,6 +67,8 @@ public class Controller <O, C> implements Initializable {
     //Settings
     @FXML
     private Button btnModifyUser;
+    @FXML
+    private Button btnModifyPassword;
 
     //Section
     @FXML
@@ -121,18 +123,11 @@ public class Controller <O, C> implements Initializable {
         Node[] nodes = new Node[10];
         for (int i = 0; i < nodes.length; i++) {
             try {
-
-                final int j = i;
                 nodes[i] = FXMLLoader.load(getClass().getResource("Item.fxml"));
 
                 //give the items some effect
 
-                nodes[i].setOnMouseEntered(event -> {
-                    nodes[j].setStyle("-fx-background-color : #A09B9B");
-                });
-                nodes[i].setOnMouseExited(event -> {
-                    nodes[j].setStyle("-fx-background-color : #E2E2E2");
-                });
+                setStyleNode(nodes[i]);
                 pnItems.getChildren().add(nodes[i]);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -186,34 +181,21 @@ public class Controller <O, C> implements Initializable {
         if (actionEvent.getSource() == btnModifyUser) {
             modifyUserInfos();
         }
+        if (actionEvent.getSource() == btnModifyPassword) {
+            modifyPassword();
+        }
         if (actionEvent.getSource() == btnCreateSection) {
-            loadCreateWindow("section", "../PopUpScreens/ModifySection.fxml", "LSB: Création d'une Section");
+            loadWindow("section", "../PopUpScreens/ModifySection.fxml", "LSB: Création d'une Section");
         }
         if (actionEvent.getSource() == btnCreateType) {
-            loadCreateWindow("type", "../PopUpScreens/ModifyType.fxml", "LSB: Création d'un Type de service");
+            loadWindow("type", "../PopUpScreens/ModifyType.fxml", "LSB: Création d'un Type de service");
         }
         if (actionEvent.getSource() == btnCreateSupport) {
-            loadCreateWindow("user", "../PopUpScreens/CreateUser.fxml", "LSB: Création d'un compte Support");
+            loadWindow("user", "../PopUpScreens/CreateUser.fxml", "LSB: Création d'un compte Support");
         }
         if (actionEvent.getSource() == btnSignout) {
-            confirmDisconnection();
+            loadWindow("disconnection","../home/disconnectionConfirm.fxml","LinkService Backoffice");
         }
-    }
-
-    private void confirmDisconnection() throws IOException {
-        Stage primaryStage = (Stage) btnSignout.getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("../home/disconnectionConfirm.fxml")
-        );
-
-        Stage mainStage = new Stage();
-        mainStage.setTitle("LinkService Backoffice");
-        mainStage.setScene(new Scene((Pane) loader.load()));
-        home.DisconnectionConfirm controller = loader.getController();
-        controller.initWindow(primaryStage);
-
-        mainStage.show();
     }
 
     private void loadUserData() {
@@ -241,8 +223,6 @@ public class Controller <O, C> implements Initializable {
             Node[] nodes = new Node[10];
             for (int i = 0; i < sectionData.size(); i++) {
                 try {
-                    final int j = i;
-
                     Section section = sectionData.get(Integer.toString(i));
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemSection.fxml"));
@@ -253,12 +233,7 @@ public class Controller <O, C> implements Initializable {
                     ControllerItemSection controllerItemSection = loader.getController();
                     controllerItemSection.updateItemSection(section);
 
-                    nodes[i].setOnMouseEntered(event -> {
-                        nodes[j].setStyle("-fx-background-color : #A09B9B");
-                    });
-                    nodes[i].setOnMouseExited(event -> {
-                        nodes[j].setStyle("-fx-background-color : #E2E2E2");
-                    });
+                    setStyleNode(nodes[i]);
                     pnItemsSection.getChildren().add(nodes[i]);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -267,7 +242,6 @@ public class Controller <O, C> implements Initializable {
         } else {
             //TODO if no section to display
         }
-
     }
 
     private void loadTypeData() throws IOException, InterruptedException {
@@ -286,8 +260,6 @@ public class Controller <O, C> implements Initializable {
             Node[] nodes = new Node[10];
             for (int i = 0; i < typeData.size(); i++) {
                 try {
-                    final int j = i;
-
                     TypeService type = typeData.get(Integer.toString(i));
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemType.fxml"));
@@ -298,12 +270,7 @@ public class Controller <O, C> implements Initializable {
                     ControllerItemType controllerItemType = loader.getController();
                     controllerItemType.loadItem(type);
 
-                    nodes[i].setOnMouseEntered(event -> {
-                        nodes[j].setStyle("-fx-background-color : #A09B9B");
-                    });
-                    nodes[i].setOnMouseExited(event -> {
-                        nodes[j].setStyle("-fx-background-color : #E2E2E2");
-                    });
+                    setStyleNode(nodes[i]);
                     pnItemsTypes.getChildren().add(nodes[i]);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -312,7 +279,6 @@ public class Controller <O, C> implements Initializable {
         } else {
             //TODO : no item to display
         }
-
     }
 
     private void loadTableUsersData() throws IOException, InterruptedException {
@@ -331,8 +297,6 @@ public class Controller <O, C> implements Initializable {
             Node[] nodes = new Node[10];
             for (int i = 0; i < typeData.size(); i++) {
                 try {
-                    final int j = i;
-
                     User user = typeData.get(Integer.toString(i));
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemUser.fxml"));
@@ -343,12 +307,7 @@ public class Controller <O, C> implements Initializable {
                     ControllerItemUser controllerItemUser = loader.getController();
                     controllerItemUser.loadItem(user);
 
-                    nodes[i].setOnMouseEntered(event -> {
-                        nodes[j].setStyle("-fx-background-color : #A09B9B");
-                    });
-                    nodes[i].setOnMouseExited(event -> {
-                        nodes[j].setStyle("-fx-background-color : #E2E2E2");
-                    });
+                    setStyleNode(nodes[i]);
                     pnItemsUser.getChildren().add(nodes[i]);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -375,8 +334,6 @@ public class Controller <O, C> implements Initializable {
             Node[] nodes = new Node[10];
             for (int i = 0; i < ServicesData.size(); i++) {
                 try {
-                    final int j = i;
-
                     Service service = ServicesData.get(Integer.toString(i));
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemService.fxml"));
@@ -387,12 +344,7 @@ public class Controller <O, C> implements Initializable {
                     ControllerItemService controller = loader.getController();
                     controller.loadItem(service);
 
-                    nodes[i].setOnMouseEntered(event -> {
-                        nodes[j].setStyle("-fx-background-color : #A09B9B");
-                    });
-                    nodes[i].setOnMouseExited(event -> {
-                        nodes[j].setStyle("-fx-background-color : #E2E2E2");
-                    });
+                    setStyleNode(nodes[i]);
                     pnItemsService.getChildren().add(nodes[i]);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -401,16 +353,6 @@ public class Controller <O, C> implements Initializable {
         } else {
             //TODO : no item to display
         }
-    }
-
-    private HttpResponse<String> getData(String table) throws IOException, InterruptedException {
-        Gson gson = new Gson();
-
-        HashMap<String, Object> inputData = new HashMap<>();
-        inputData.put("table", table);
-        String inputJson = gson.toJson(inputData);
-
-        return API.sendRequest(inputJson, "readAll");
     }
 
     private void modifyUserInfos() throws IOException, InterruptedException {
@@ -445,7 +387,21 @@ public class Controller <O, C> implements Initializable {
         userConnected.updateUser(newName, newSurname, newBirthDate, newAdress, newCity);
     }
 
-    private void loadCreateWindow(String object, String window, String title) throws IOException {
+    private void modifyPassword() throws IOException {
+        loadWindow("userPwd", "../PopUpScreens/ModifyPassword.fxml", "LSB: Modifiction du mot de passe");
+    }
+
+    private HttpResponse<String> getData(String table) throws IOException, InterruptedException {
+        Gson gson = new Gson();
+
+        HashMap<String, Object> inputData = new HashMap<>();
+        inputData.put("table", table);
+        String inputJson = gson.toJson(inputData);
+
+        return API.sendRequest(inputJson, "readAll");
+    }
+
+    private void loadWindow(String action, String window, String title) throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(window)
         );
@@ -453,12 +409,27 @@ public class Controller <O, C> implements Initializable {
         Stage mainStage = new Stage();
         mainStage.setTitle(title);
         mainStage.setScene(new Scene((Pane) loader.load()));
-        if(object.equals("section")){
-            PopUpScreens.ControllerModifySection controller = loader.getController();
-            controller.loadCreateWindow();
-        } else if (object.equals("type")){
-            PopUpScreens.ControllerModifyType controller = loader.getController();
-            controller.loadCreateWindow();
+        switch (action) {
+            case "section": {
+                PopUpScreens.ControllerModifySection controller = loader.getController();
+                controller.loadCreateWindow();
+                break;
+            }
+            case "type": {
+                PopUpScreens.ControllerModifyType controller = loader.getController();
+                controller.loadCreateWindow();
+                break;
+            }
+            case "userPwd": {
+                PopUpScreens.ControllerModifyPassword controller = loader.getController();
+                controller.loadCreateWindow(userConnected);
+                break;
+            }
+            case "disconnection":{
+                Stage primaryStage = (Stage) btnSignout.getScene().getWindow();
+                home.DisconnectionConfirm controller = loader.getController();
+                controller.initWindow(primaryStage);
+            }
         }
         mainStage.show();
     }
@@ -467,6 +438,15 @@ public class Controller <O, C> implements Initializable {
         if (paneToClear.getChildren().size() > 0) {
             paneToClear.getChildren().clear();
         }
+    }
+
+    private void setStyleNode(Node node){
+        node.setOnMouseEntered(event -> {
+            node.setStyle("-fx-background-color : #A09B9B");
+        });
+        node.setOnMouseExited(event -> {
+            node.setStyle("-fx-background-color : #E2E2E2");
+        });
     }
 
 }
