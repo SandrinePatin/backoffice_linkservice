@@ -1,7 +1,6 @@
-package ModifyScreen;
+package PopUpScreens;
 
 import Classes.API;
-import Classes.Section;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

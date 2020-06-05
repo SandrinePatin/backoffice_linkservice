@@ -79,6 +79,10 @@ public class Controller <O, C> implements Initializable {
     @FXML
     private Button btnCreateType;
 
+    //Support
+    @FXML
+    private Button btnCreateSupport;
+
     @FXML
     private Pane pnlUsers;
     @FXML
@@ -183,10 +187,13 @@ public class Controller <O, C> implements Initializable {
             modifyUserInfos();
         }
         if (actionEvent.getSource() == btnCreateSection) {
-            loadCreateWindow("section", "../ModifyScreen/ModifySection.fxml", "LSB: Création d'une Section");
+            loadCreateWindow("section", "../PopUpScreens/ModifySection.fxml", "LSB: Création d'une Section");
         }
         if (actionEvent.getSource() == btnCreateType) {
-            loadCreateWindow("type", "../ModifyScreen/ModifyType.fxml", "LSB: Création d'un Type de service");
+            loadCreateWindow("type", "../PopUpScreens/ModifyType.fxml", "LSB: Création d'un Type de service");
+        }
+        if (actionEvent.getSource() == btnCreateSupport) {
+            loadCreateWindow("user", "../PopUpScreens/CreateUser.fxml", "LSB: Création d'un compte Support");
         }
         if (actionEvent.getSource() == btnSignout) {
             confirmDisconnection();
@@ -447,10 +454,10 @@ public class Controller <O, C> implements Initializable {
         mainStage.setTitle(title);
         mainStage.setScene(new Scene((Pane) loader.load()));
         if(object.equals("section")){
-            ModifyScreen.ControllerModifySection controller = loader.getController();
+            PopUpScreens.ControllerModifySection controller = loader.getController();
             controller.loadCreateWindow();
         } else if (object.equals("type")){
-            ModifyScreen.ControllerModifyType controller = loader.getController();
+            PopUpScreens.ControllerModifyType controller = loader.getController();
             controller.loadCreateWindow();
         }
         mainStage.show();

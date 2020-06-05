@@ -38,10 +38,10 @@ public class ControllerItemSection {
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
         if (actionEvent.getSource() == btnModifySection) {
-            loadNewWindow("../ModifyScreen/ModifySection.fxml", "LSB: Modification d'une Section", "modify");
+            loadNewWindow("../PopUpScreens/ModifySection.fxml", "LSB: Modification d'une Section", "modify");
         }
         if (actionEvent.getSource() == btnDeleteSection){
-            loadNewWindow("../ModifyScreen/DeleteItemWindow.fxml", "LSB: Supression d'une Section", "delete");
+            loadNewWindow("../PopUpScreens/DeleteItemWindow.fxml", "LSB: Supression d'une Section", "delete");
         }
     }
 
@@ -55,10 +55,10 @@ public class ControllerItemSection {
         mainStage.setScene(new Scene((Pane) loader.load()));
 
         if(action.equals("modify")){
-            ModifyScreen.ControllerModifySection controller = loader.getController();
+            PopUpScreens.ControllerModifySection controller = loader.getController();
             controller.loadSection(section);
         } else if (action.equals("delete")){
-            ModifyScreen.ControllerDeleteItemWindow controller = loader.getController();
+            PopUpScreens.ControllerDeleteItemWindow controller = loader.getController();
             controller.loadItemToDelete("Rubrique => " + section.getName(), section.getId(), "section");
         }
 

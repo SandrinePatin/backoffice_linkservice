@@ -40,7 +40,7 @@ public class ControllerItemUser {
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
         if (actionEvent.getSource() == btnDeleteUser){
-            loadNewWindow("../ModifyScreen/DeleteItemWindow.fxml", "LSB: Supression d'un utilisateur", "delete");
+            loadNewWindow("../PopUpScreens/DeleteItemWindow.fxml", "LSB: Supression d'un utilisateur", "delete");
         }
     }
 
@@ -53,7 +53,7 @@ public class ControllerItemUser {
         mainStage.setTitle(title);
         mainStage.setScene(new Scene((Pane) loader.load()));
 
-        ModifyScreen.ControllerDeleteItemWindow controller = loader.getController();
+        PopUpScreens.ControllerDeleteItemWindow controller = loader.getController();
         controller.loadItemToDelete("Utilisateur => " + user.getEmail(), user.getId(), "user");
 
 

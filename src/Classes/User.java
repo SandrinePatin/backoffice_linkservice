@@ -3,6 +3,7 @@ package Classes;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 public class User {
@@ -65,12 +66,6 @@ public class User {
         adress = newAdress;
         city = newCity;
 
-        updateInDatabase();
-    }
-
-    private void updateInDatabase() throws IOException, InterruptedException {
-        Gson gson = new Gson ();
-
         HashMap<String, String> inputValues = new HashMap<>();
         inputValues.put("name",name);
         inputValues.put("surname",surname);
@@ -79,12 +74,31 @@ public class User {
         inputValues.put("city",city);
         inputValues.put("id", Integer.toString(id));
 
+        updateInDatabase(inputValues, "update");
+    }
+
+    public static void createUser(String email, String password, String name, String surname, String birthdate, String type) throws NoSuchAlgorithmException, IOException, InterruptedException {
+        HashMap<String, String> inputValues = new HashMap<>();
+        inputValues.put("email",email);
+        inputValues.put("password",API.passwordHash(password));
+        inputValues.put("name",name);
+        inputValues.put("surname",surname);
+        inputValues.put("birthdate",birthdate);
+        inputValues.put("type",type);
+        System.out.println("miam createUser");
+        updateInDatabase(inputValues, "create");
+
+    }
+
+    private static void updateInDatabase(HashMap<String, String> inputValues, String action) throws IOException, InterruptedException {
+        Gson gson = new Gson ();
+
         HashMap<String, Object> inputData = new HashMap<>();
         inputData.put("table","user");
         inputData.put("values", inputValues);
         String inputJson = gson.toJson(inputData);
 
-        var response = API.sendRequest(inputJson, "update");
+        var response = API.sendRequest(inputJson, action);
 
         //TODO: if API is disconnected
     }

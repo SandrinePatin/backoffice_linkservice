@@ -1,6 +1,5 @@
 package Items;
 
-import Classes.Section;
 import Classes.TypeService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,10 +42,10 @@ public class ControllerItemType {
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
         if (actionEvent.getSource() == btnModifyType) {
-            loadNewWindow("../ModifyScreen/ModifyType.fxml", "LSB: Modification d'un type", "modify");
+            loadNewWindow("../PopUpScreens/ModifyType.fxml", "LSB: Modification d'un type", "modify");
         }
         if (actionEvent.getSource() == btnDeleteType){
-            loadNewWindow("../ModifyScreen/DeleteItemWindow.fxml", "LSB: Supression d'un type", "delete");
+            loadNewWindow("../PopUpScreens/DeleteItemWindow.fxml", "LSB: Supression d'un type", "delete");
         }
     }
 
@@ -60,10 +59,10 @@ public class ControllerItemType {
         mainStage.setScene(new Scene((Pane) loader.load()));
 
         if(action.equals("modify")){
-            ModifyScreen.ControllerModifyType controller = loader.getController();
+            PopUpScreens.ControllerModifyType controller = loader.getController();
             controller.loadSection(typeService);
         } else if (action.equals("delete")){
-            ModifyScreen.ControllerDeleteItemWindow controller = loader.getController();
+            PopUpScreens.ControllerDeleteItemWindow controller = loader.getController();
             controller.loadItemToDelete("Type de Service => " + typeService.getName(), typeService.getId(), "type_service");
         }
 
