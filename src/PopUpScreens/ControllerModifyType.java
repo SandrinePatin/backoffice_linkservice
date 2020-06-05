@@ -21,6 +21,8 @@ public class ControllerModifyType {
     private TextArea tfDescriptionModifyType;
     @FXML
     private TextArea tfImageModifyType;
+    @FXML
+    private TextField tfActifType;
 
     @FXML
     private Button btnModifySectionData;
@@ -35,6 +37,7 @@ public class ControllerModifyType {
         actualType = typeService;
         tfNameModifyType.setPromptText(typeService.getName());
         tfDescriptionModifyType.setPromptText(typeService.getDescription());
+        tfActifType.setPromptText(Integer.toString(typeService.getActive()));
 
         btnCreateSectionData.setVisible(false);
         btnModifySectionData.setVisible(true);
@@ -62,6 +65,7 @@ public class ControllerModifyType {
         String newName = tfNameModifyType.getText();
         String newDescription = tfDescriptionModifyType.getText();
         String newImage = tfImageModifyType.getText();
+        String newStatusActive = tfActifType.getText();
 
         if (newName.equals("")) {
             newName = actualType.getName();
@@ -72,8 +76,11 @@ public class ControllerModifyType {
         if(newImage.equals("")) {
             newImage = actualType.getImage();
         }
+        if(newStatusActive.equals("")) {
+            newStatusActive = Integer.toString(actualType.getActive());
+        }
 
-        actualType.updateType(newName, newDescription, newImage);
+        actualType.updateType(newName, newDescription, newImage, Integer.parseInt(newStatusActive));
     }
 
     private void createType() throws IOException, InterruptedException {
@@ -82,7 +89,7 @@ public class ControllerModifyType {
         String newDescription = tfDescriptionModifyType.getText();
         String newImage = tfImageModifyType.getText();
 
-        actualType = new TypeService(0, newName, newDescription, newImage);
+        actualType = new TypeService(0, newName, newDescription, newImage, 1);
 
         if (newName.equals("")) {
             tfNameModifyType.setStyle("-fx-border-color: red");

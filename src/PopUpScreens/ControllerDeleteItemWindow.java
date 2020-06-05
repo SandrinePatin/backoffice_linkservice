@@ -30,24 +30,25 @@ public class ControllerDeleteItemWindow{
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
         if (actionEvent.getSource() == btnDeleteItem) {
-            delete();
+            desactive();
 
             Stage primaryStage = (Stage) btnDeleteItem.getScene().getWindow();
             primaryStage.close();
         }
     }
 
-    private void delete() throws IOException, InterruptedException {
+    private void desactive() throws IOException, InterruptedException {
         Gson gson = new Gson();
         HashMap<String, String> inputValues = new HashMap<>();
         inputValues.put("id", Integer.toString(idToDelete));
+        inputValues.put("active", Integer.toString(0));
 
         HashMap<String, Object> inputData = new HashMap<>();
         inputData.put("table", table);
         inputData.put("values", inputValues);
         String inputJson = gson.toJson(inputData);
 
-        var response = API.sendRequest(inputJson, "deleteOne");
+        var response = API.sendRequest(inputJson, "update");
     }
 
 }

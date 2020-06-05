@@ -10,12 +10,14 @@ public class TypeService {
     private String name;
     private String description;
     private String picture;
+    private int active;
 
-    public TypeService(int idSection, String n, String d, String i) {
+    public TypeService(int idSection, String n, String d, String i, int a) {
         id = idSection;
         name = n;
         description = d;
         picture = i;
+        active = a;
     }
 
     public int getId() {
@@ -32,22 +34,21 @@ public class TypeService {
 
     public String getImage() { return picture; }
 
+    public int getActive() { return active; }
+
     public void createType() throws IOException, InterruptedException {
 
         updateInDatabase("create");
     }
 
-    public void updateType(String newName, String newDescription, String newPicture) throws IOException, InterruptedException {
+    public void updateType(String newName, String newDescription, String newPicture, int newStatusActive) throws IOException, InterruptedException {
         name = newName;
         description = newDescription;
         picture = newPicture;
+        active = newStatusActive;
+        System.out.println(active);
 
         updateInDatabase("update");
-    }
-
-    public void deleteType() throws IOException, InterruptedException {
-        updateInDatabase("deleteOne");
-
     }
 
     private void updateInDatabase(String action) throws IOException, InterruptedException {
@@ -57,9 +58,9 @@ public class TypeService {
             inputValues.put("name", name);
             inputValues.put("description", description);
             inputValues.put("picture", picture);
+            inputValues.put("active", Integer.toString(active));
         }
-
-        if (action.equals("update") || action.equals("delete")) {
+        if (action.equals("update")) {
             inputValues.put("id", Integer.toString(id));
         }
 

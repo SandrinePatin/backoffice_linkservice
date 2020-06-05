@@ -26,6 +26,8 @@ public class ControllerItemType {
     private Label labelDescriptionType;
     @FXML
     private Label labelImageType;
+    @FXML
+    private Label labelActiveType;
 
     @FXML
     private Button btnModifyType;
@@ -38,6 +40,7 @@ public class ControllerItemType {
         labelNameType.setText(t.getName());
         labelDescriptionType.setText(t.getDescription());
         labelImageType.setText(t.getImage());
+        labelActiveType.setText(Integer.toString(t.getActive()));
     }
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
