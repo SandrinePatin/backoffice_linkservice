@@ -6,14 +6,16 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class Section {
-    private int id;
+    private final int id;
     private String name;
     private String description;
+    private int active;
 
-    public Section(int idSection, String n, String d) {
+    public Section(int idSection, String n, String d, int a) {
         id = idSection;
         name = n;
         description = d;
+        active = a;
     }
 
     public int getId() {
@@ -28,20 +30,18 @@ public class Section {
         return description;
     }
 
+    public int getActive() { return active; }
+
     public void createSection() throws IOException, InterruptedException {
         updateInDatabase("create");
     }
 
-    public void updateSection(String newName, String newDescription) throws IOException, InterruptedException {
+    public void updateSection(String newName, String newDescription, int newStatusActive) throws IOException, InterruptedException {
         name = newName;
         description = newDescription;
+        active = newStatusActive;
 
         updateInDatabase("update");
-    }
-
-    public void deleteSection() throws IOException, InterruptedException {
-        updateInDatabase("deleteOne");
-
     }
 
     private void updateInDatabase(String action) throws IOException, InterruptedException {
@@ -50,9 +50,10 @@ public class Section {
         if(action.equals("create") || action.equals("update")){
             inputValues.put("name", name);
             inputValues.put("description", description);
+            inputValues.put("active", Integer.toString(active));
         }
 
-        if (action.equals("update") || action.equals("delete")) {
+        if (action.equals("update")) {
             inputValues.put("id", Integer.toString(id));
         }
 

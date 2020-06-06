@@ -16,12 +16,14 @@
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="17.0" text="Nom" />
                         <TextField fx:id="tfNameModifySection" layoutX="10.0" layoutY="12.0" promptText="Nom de la rubrique" GridPane.columnIndex="1" />
                         <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="17.0" text="Description" wrapText="true" GridPane.rowIndex="1" />
                         <TextArea fx:id="tfDescriptionModifySection" promptText="Description de la rubrique " wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <CheckBox fx:id="tfActiveModifySection1" mnemonicParsing="false" text="Active" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="15.0" />

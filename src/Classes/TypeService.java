@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class TypeService {
-    private int id;
+    private final int id;
     private String name;
     private String description;
     private String picture;
@@ -37,7 +37,6 @@ public class TypeService {
     public int getActive() { return active; }
 
     public void createType() throws IOException, InterruptedException {
-
         updateInDatabase("create");
     }
 
@@ -46,7 +45,6 @@ public class TypeService {
         description = newDescription;
         picture = newPicture;
         active = newStatusActive;
-        System.out.println(active);
 
         updateInDatabase("update");
     }

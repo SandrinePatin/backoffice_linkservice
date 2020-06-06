@@ -26,8 +26,7 @@
                         <TextArea fx:id="tfDescriptionModifyType" promptText="Description du type" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="105.0" text="Image" wrapText="true" GridPane.rowIndex="2" />
                   <TextArea fx:id="tfImageModifyType" layoutX="113.0" layoutY="29.0" promptText="Image du type" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="189.0" text="Actif" wrapText="true" GridPane.rowIndex="3" />
-                  <TextField fx:id="tfActifType" layoutX="113.0" layoutY="4.0" promptText="Nom du type" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <CheckBox fx:id="tfActifType" mnemonicParsing="false" text="Actif" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="15.0" />

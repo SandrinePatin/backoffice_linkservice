@@ -190,6 +190,11 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
+                  <Button id="btnDisplayDesac" fx:id="btnDisplayDesacSection" layoutX="270.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Afficher les Rubriques désactivées" textFill="#c35924">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                   <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="30.0" style="-fx-background-color: #E2E2E2;">
                      <children>
                         <Label text="Id" textFill="#727070">
@@ -202,11 +207,12 @@
                               <Insets />
                            </HBox.margin>
                         </Label>
-                        <Label prefWidth="300.0" text="Description" textFill="#727070">
+                        <Label prefWidth="170.0" text="Description" textFill="#727070">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Label>
+                        <Label layoutX="231.0" layoutY="23.0" prefWidth="50.0" text="Active" textFill="#727070" />
                         <Label layoutX="257.0" layoutY="23.0" text="Action" textFill="#727070" />
                      </children>
                   </HBox>

@@ -23,6 +23,8 @@ public class ControllerItemSection {
     private Label labelNameSection;
     @FXML
     private Label labelDescriptionSection;
+    @FXML
+    private Label labelActiveSection;
 
     @FXML
     private Button btnModifySection;
@@ -34,6 +36,7 @@ public class ControllerItemSection {
         labelIdSection.setText(Integer.toString(s.getId()));
         labelNameSection.setText(s.getName());
         labelDescriptionSection.setText(s.getDescription());
+        labelActiveSection.setText(Integer.toString(s.getActive()));
     }
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {

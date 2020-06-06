@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -20,6 +21,8 @@ public class ControllerModifySection {
     private TextField tfNameModifySection;
     @FXML
     private TextArea tfDescriptionModifySection;
+    @FXML
+    private CheckBox tfActiveModifySection1;
 
     @FXML
     private Button btnModifySectionData;
@@ -34,14 +37,17 @@ public class ControllerModifySection {
         actualSection = section;
         tfNameModifySection.setPromptText(section.getName());
         tfDescriptionModifySection.setPromptText(section.getDescription());
+        tfActiveModifySection1.setSelected(section.getActive() == 1);
 
         btnCreateSectionData.setVisible(false);
         btnModifySectionData.setVisible(true);
+        tfActiveModifySection1.setVisible(true);
     }
 
     public void loadCreateWindow() {
         btnCreateSectionData.setVisible(true);
         btnModifySectionData.setVisible(false);
+        tfActiveModifySection1.setVisible(false);
     }
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
@@ -60,6 +66,7 @@ public class ControllerModifySection {
     private void updateSection() throws IOException, InterruptedException {
         String newName = tfNameModifySection.getText();
         String newDescription = tfDescriptionModifySection.getText();
+        int newStatusActive ;
 
         if (newName.equals("")) {
             newName = actualSection.getName();
@@ -67,8 +74,13 @@ public class ControllerModifySection {
         if (newDescription.equals("")) {
             newDescription = actualSection.getDescription();
         }
+        if (tfActiveModifySection1.isSelected()){
+            newStatusActive = 1;
+        } else {
+            newStatusActive = 0;
+        }
 
-        actualSection.updateSection(newName, newDescription);
+        actualSection.updateSection(newName, newDescription, newStatusActive);
     }
 
     private void createSection() throws IOException, InterruptedException {
@@ -76,7 +88,7 @@ public class ControllerModifySection {
         String newName = tfNameModifySection.getText();
         String newDescription = tfDescriptionModifySection.getText();
 
-        actualSection = new Section(0, newName, newDescription);
+        actualSection = new Section(0, newName, newDescription, 1);
 
         error = checkValue(newName, tfNameModifySection);
         if (newDescription.equals("")) {

@@ -22,11 +22,12 @@
                 <Insets />
             </HBox.margin>
         </Label>
-        <Label fx:id="labelDescriptionSection" prefWidth="300.0" text="Description" textFill="#686565" wrapText="true">
+        <Label fx:id="labelDescriptionSection" prefWidth="200.0" text="Description" textFill="#686565" wrapText="true">
             <HBox.margin>
                 <Insets />
             </HBox.margin>
         </Label>
+      <Label fx:id="labelActiveSection" layoutX="217.0" layoutY="28.0" prefWidth="50.0" text="Active" textFill="#686565" wrapText="true" />
         <Button fx:id="btnModifySection" mnemonicParsing="false" onAction="#handleClicks" prefHeight="10.0" style="-fx-border-color: #686565; -fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@../home/style.css" text="Modifier" textFill="#686565">
             <HBox.margin>
                 <Insets />

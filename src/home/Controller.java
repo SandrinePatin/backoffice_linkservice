@@ -73,6 +73,8 @@ public class Controller implements Initializable {
     //Section
     @FXML
     private Button btnCreateSection;
+    @FXML
+    private Button btnDisplayDesacSection;
 
     @FXML
     private Label userNameField;
@@ -188,6 +190,9 @@ public class Controller implements Initializable {
         }
         if (actionEvent.getSource() == btnDisplayDesac) {
             loadTypeData(false);
+        }
+        if (actionEvent.getSource() == btnDisplayDesacSection) {
+            loadSectionData(false);
         }
         if (actionEvent.getSource() == btnCreateSection) {
             loadWindow("section", "../PopUpScreens/ModifySection.fxml", "LSB: Création d'une Section");
@@ -412,11 +417,8 @@ public class Controller implements Initializable {
             action = "readAll";
         }
 
-
         inputJson = gson.toJson(inputData);
         return API.sendRequest(inputJson, action);
-
-
     }
 
     private void loadWindow(String action, String window, String title) throws IOException {
