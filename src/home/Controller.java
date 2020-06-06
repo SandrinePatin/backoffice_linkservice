@@ -80,6 +80,8 @@ public class Controller implements Initializable {
     //Type
     @FXML
     private Button btnCreateType;
+    @FXML
+    private Button btnDisplayDesac;
 
     //Support
     @FXML
@@ -151,7 +153,7 @@ public class Controller implements Initializable {
             pnlUsers.toFront();
         }
         if (actionEvent.getSource() == btnForum) {
-            loadSectionData();
+            loadSectionData(true);
             pnlForum.setStyle("-fx-background-color : #E2E2E2");
             pnlForum.toFront();
         }
@@ -169,12 +171,12 @@ public class Controller implements Initializable {
             pnlSettings.toFront();
         }
         if (actionEvent.getSource() == btnServices) {
-            loadServiceData();
+            loadServiceData(true);
             pnlServices.setStyle("-fx-background-color : #E2E2E2");
             pnlServices.toFront();
         }
         if (actionEvent.getSource() == btnTypesServices) {
-            loadTypeData();
+            loadTypeData(true);
             pnlTypesServices.setStyle("-fx-background-color : #E2E2E2");
             pnlTypesServices.toFront();
         }
@@ -183,6 +185,9 @@ public class Controller implements Initializable {
         }
         if (actionEvent.getSource() == btnModifyPassword) {
             modifyPassword();
+        }
+        if (actionEvent.getSource() == btnDisplayDesac) {
+            loadTypeData(false);
         }
         if (actionEvent.getSource() == btnCreateSection) {
             loadWindow("section", "../PopUpScreens/ModifySection.fxml", "LSB: Création d'une Section");
@@ -207,10 +212,10 @@ public class Controller implements Initializable {
         tfCity.setPromptText(userConnected.getCity());
     }
 
-    private void loadSectionData() throws IOException, InterruptedException {
+    private void loadSectionData(boolean active) throws IOException, InterruptedException {
         clearPane(pnItemsSection);
 
-        HttpResponse<String> response = getData("section");
+        HttpResponse<String> response = getData("section",active);
         HashMap<String, Section> sectionData = new HashMap<>();
 
         if(response.body().startsWith("i", 2)){
@@ -244,19 +249,19 @@ public class Controller implements Initializable {
         }
     }
 
-    private void loadTypeData() throws IOException, InterruptedException {
+    private void loadTypeData(boolean active) throws IOException, InterruptedException {
         clearPane(pnItemsTypes);
 
-        HttpResponse<String> response = getData("type_service");
+        HttpResponse<String> response = getData("type_service",active);
         HashMap<String, TypeService> typeData = new HashMap<>();
 
-        if(response.body().startsWith("i", 2)){
-            typeData.put("0",gson.fromJson(response.body(), TypeService.class));
-        } else {
-            typeData = API.decodeResponseMultipleAsTypeService(response);
-        }
+        if(response.body() != null){
+            if(response.body().startsWith("i", 2)){
+                typeData.put("0",gson.fromJson(response.body(), TypeService.class));
+            } else {
+                typeData = API.decodeResponseMultipleAsTypeService(response);
+            }
 
-        if(typeData != null){
             Node[] nodes = new Node[10];
             for (int i = 0; i < typeData.size(); i++) {
                 try {
@@ -284,16 +289,16 @@ public class Controller implements Initializable {
     private void loadTableUsersData() throws IOException, InterruptedException {
         clearPane(pnItemsUser);
 
-        HttpResponse<String> response = getData("user");
+        HttpResponse<String> response = getData("user", true);
         HashMap<String, User> typeData = new HashMap<>();
 
-        if(response.body().startsWith("i", 2)){
-            typeData.put("0",gson.fromJson(response.body(), User.class));
-        } else {
-            typeData = API.decodeResponseMultipleAsUser(response);
-        }
+        if(response.body() != null){
+            if(response.body().startsWith("i", 2)){
+                typeData.put("0",gson.fromJson(response.body(), User.class));
+            } else {
+                typeData = API.decodeResponseMultipleAsUser(response);
+            }
 
-        if(typeData != null){
             Node[] nodes = new Node[10];
             for (int i = 0; i < typeData.size(); i++) {
                 try {
@@ -318,19 +323,19 @@ public class Controller implements Initializable {
         }
     }
 
-    private void loadServiceData() throws IOException, InterruptedException {
+    private void loadServiceData(boolean active) throws IOException, InterruptedException {
         clearPane(pnItemsService);
 
-        HttpResponse<String> response = getData("service");
+        HttpResponse<String> response = getData("service",active);
         HashMap<String, Service> ServicesData = new HashMap<>();
 
-        if(response.body().startsWith("i", 2)){
-            ServicesData.put("0",gson.fromJson(response.body(), Service.class));
-        } else {
-            ServicesData = API.decodeResponseMultipleAsService(response);
-        }
+        if(response.body() != null){
+            if(response.body().startsWith("i", 2)){
+                ServicesData.put("0",gson.fromJson(response.body(), Service.class));
+            } else {
+                ServicesData = API.decodeResponseMultipleAsService(response);
+            }
 
-        if(ServicesData != null){
             Node[] nodes = new Node[10];
             for (int i = 0; i < ServicesData.size(); i++) {
                 try {
@@ -391,14 +396,27 @@ public class Controller implements Initializable {
         loadWindow("userPwd", "../PopUpScreens/ModifyPassword.fxml", "LSB: Modifiction du mot de passe");
     }
 
-    private HttpResponse<String> getData(String table) throws IOException, InterruptedException {
+    private HttpResponse<String> getData(String table, boolean active) throws IOException, InterruptedException {
         Gson gson = new Gson();
-
+        String inputJson;
+        String action;
         HashMap<String, Object> inputData = new HashMap<>();
         inputData.put("table", table);
-        String inputJson = gson.toJson(inputData);
 
-        return API.sendRequest(inputJson, "readAll");
+        if(table.equals("type_service") || table.equals("section") || table.equals("user")){
+            HashMap<String, String> inputValues = new HashMap<>();
+            inputValues.put("where"," WHERE active=" + (active ? 1 : 0));
+            inputData.put("values", inputValues);
+            action = "readWithFilter";
+        } else {
+            action = "readAll";
+        }
+
+
+        inputJson = gson.toJson(inputData);
+        return API.sendRequest(inputJson, action);
+
+
     }
 
     private void loadWindow(String action, String window, String title) throws IOException {

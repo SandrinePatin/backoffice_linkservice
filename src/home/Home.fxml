@@ -141,6 +141,11 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
+                  <Button id="btnDisplayDesac" fx:id="btnDisplayDesac" layoutX="270.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Afficher les types désactivés" textFill="#c35924">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                   <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="10.0" style="-fx-background-color: #E2E2E2;">
                      <children>
                         <Label text="Id" textFill="#727070">
