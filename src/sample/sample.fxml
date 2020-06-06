@@ -22,7 +22,7 @@
       <TextField fx:id="username" />
       <Label layoutX="10.0" layoutY="10.0" text="Mot de passe" />
       <PasswordField fx:id="password" />
-      <Label id="errorLabel" fx:id="errorLabel" style="visibility: false;" stylesheets="@firstStyle.css" text="Cette combinaison nous est inconnue" textFill="#fc0000" />
+      <Label id="errorLabel" fx:id="errorLabel" style="visibility: false;" stylesheets="@firstStyle.css" text="Cette combinaison nous est inconnue" textFill="#fc0000" wrapText="true" />
       <Button fx:id="connectBtn" mnemonicParsing="false" onAction="#handleClicks" text="Button" />
    </children>
    <padding>

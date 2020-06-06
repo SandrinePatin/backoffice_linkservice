@@ -33,25 +33,30 @@ public class Controller {
             User user = connexion.checkConnexion();
 
             if (user == null) {
+                errorLabel.setText("Cette combinaison nous est inconnue");
                 errorLabel.setVisible(true);
             } else {
                 user = connexion.getUserData(user.getId());
 
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("../home/Home.fxml")
-                );
+                if(user.getType().equals("admin") == false){
+                    errorLabel.setText("Connexion Refusée");
+                    errorLabel.setVisible(true);
+                } else {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("../home/Home.fxml")
+                    );
 
-                Stage mainStage = new Stage();
-                mainStage.setTitle("LinkService Backoffice");
-                mainStage.setScene(new Scene((Pane) loader.load()));
-                home.Controller controller = loader.getController();
-                controller.initData(user);
+                    Stage mainStage = new Stage();
+                    mainStage.setTitle("LinkService Backoffice");
+                    mainStage.setScene(new Scene((Pane) loader.load()));
+                    home.Controller controller = loader.getController();
+                    controller.initData(user);
 
-                mainStage.show();
+                    mainStage.show();
 
-                Stage primaryStage = (Stage) connectBtn.getScene().getWindow();
-                primaryStage.close();
-
+                    Stage primaryStage = (Stage) connectBtn.getScene().getWindow();
+                    primaryStage.close();
+                }
             }
         }
     }
