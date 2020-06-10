@@ -57,6 +57,13 @@ public class API {
         return retMap;
     }
 
+    public static HashMap<String, Ticket> decodeResponseMultipleAsTicket(HttpResponse<String> response) {
+        HashMap<String, Ticket> retMap = new Gson().fromJson(
+                response.body(), new TypeToken<HashMap<String, Ticket>>() {}.getType()
+        );
+        return retMap;
+    }
+
     public static String passwordHash(String stringToHash) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(stringToHash.getBytes(StandardCharsets.UTF_8));

@@ -1,10 +1,7 @@
 package home;
 
 import Classes.*;
-import Items.ControllerItemSection;
-import Items.ControllerItemService;
-import Items.ControllerItemType;
-import Items.ControllerItemUser;
+import Items.*;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,6 +44,8 @@ public class Controller implements Initializable {
     private VBox pnItemsUser = null;
     @FXML
     private VBox pnItemsService = null;
+    @FXML
+    private VBox pnOverview = null;
     @FXML
     private Button btnOverview;
     @FXML
@@ -124,18 +123,10 @@ public class Controller implements Initializable {
         pnlOverview.setStyle("-fx-background-color : #E2E2E2");
         pnlOverview.toFront();
 
-        Node[] nodes = new Node[10];
-        for (int i = 0; i < nodes.length; i++) {
-            try {
-                nodes[i] = FXMLLoader.load(getClass().getResource("Item.fxml"));
-
-                //give the items some effect
-
-                setStyleNode(nodes[i]);
-                pnItems.getChildren().add(nodes[i]);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            loadMainData();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
 
     }
@@ -160,6 +151,7 @@ public class Controller implements Initializable {
             pnlForum.toFront();
         }
         if (actionEvent.getSource() == btnOverview) {
+            loadMainData();
             pnlOverview.setStyle("-fx-background-color : #E2E2E2");
             pnlOverview.toFront();
         }
@@ -217,6 +209,43 @@ public class Controller implements Initializable {
         tfCity.setPromptText(userConnected.getCity());
     }
 
+    private void loadMainData() throws IOException, InterruptedException {
+        clearPane(pnOverview);
+
+        HttpResponse<String> response = getData("ticket", true);
+        HashMap<String, Ticket> TicketsData = new HashMap<>();
+
+        if(response.body().startsWith("i", 2)){
+            TicketsData.put("0",gson.fromJson(response.body(), Ticket.class));
+        } else {
+            TicketsData = API.decodeResponseMultipleAsTicket(response);
+        }
+
+        if(TicketsData != null){
+            Node[] nodes = new Node[10];
+            for (int i = 0; i < TicketsData.size(); i++) {
+                try {
+                    Ticket ticket = TicketsData.get(Integer.toString(i));
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemTicket.fxml"));
+                    nodes[i] = loader.load();
+
+                    nodes[i].setId(Integer.toString(i));
+
+                    ControllerItemTicket controllerItemTicket = loader.getController();
+                    controllerItemTicket.setItemTicket(ticket);
+
+                    setStyleNode(nodes[i]);
+                    pnOverview.getChildren().add(nodes[i]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            //TODO if no section to display
+        }
+    }
+
     private void loadSectionData(boolean active) throws IOException, InterruptedException {
         clearPane(pnItemsSection);
 
@@ -241,7 +270,7 @@ public class Controller implements Initializable {
                     nodes[i].setId(Integer.toString(i));
 
                     ControllerItemSection controllerItemSection = loader.getController();
-                    controllerItemSection.updateItemSection(section);
+                    controllerItemSection.setItemSection(section);
 
                     setStyleNode(nodes[i]);
                     pnItemsSection.getChildren().add(nodes[i]);
@@ -398,7 +427,7 @@ public class Controller implements Initializable {
     }
 
     private void modifyPassword() throws IOException {
-        loadWindow("userPwd", "../PopUpScreens/ModifyPassword.fxml", "LSB: Modifiction du mot de passe");
+        loadWindow("userPwd", "../PopUpScreens/ModifyPassword.fxml", "LSB: Modification du mot de passe");
     }
 
     private HttpResponse<String> getData(String table, boolean active) throws IOException, InterruptedException {

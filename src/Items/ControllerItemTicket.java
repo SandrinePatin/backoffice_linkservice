@@ -1,6 +1,7 @@
 package Items;
 
 import Classes.Section;
+import Classes.Ticket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,36 +15,36 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerItemSection {
-    private Section section;
+public class ControllerItemTicket {
+    private Ticket ticket;
 
     @FXML
-    private Label labelIdSection;
+    private Label labelIdTicket;
     @FXML
-    private Label labelNameSection;
+    private Label labelDateTicket;
     @FXML
-    private Label labelDescriptionSection;
+    private Label labelDescriptionTicket;
     @FXML
-    private Label labelActiveSection;
+    private Label labelStatutTicket;
 
     @FXML
-    private Button btnModifySection;
+    private Button btnModifyTicket;
     @FXML
-    private Button btnDeleteSection;
+    private Button btnDeleteTicket;
 
-    public void setItemSection(Section s) {
-        section = s;
-        labelIdSection.setText(Integer.toString(s.getId()));
-        labelNameSection.setText(s.getName());
-        labelDescriptionSection.setText(s.getDescription());
-        labelActiveSection.setText(Integer.toString(s.getActive()));
+    public void setItemTicket(Ticket t) {
+        ticket = t;
+        labelIdTicket.setText(Integer.toString(ticket.getId()));
+        labelDateTicket.setText(ticket.getDate());
+        labelDescriptionTicket.setText(ticket.getDescription());
+        labelStatutTicket.setText(Integer.toString(ticket.getStatut()));
     }
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
-        if (actionEvent.getSource() == btnModifySection) {
+        if (actionEvent.getSource() == btnModifyTicket) {
             loadNewWindow("../PopUpScreens/ModifySection.fxml", "LSB: Modification d'une Section", "modify");
         }
-        if (actionEvent.getSource() == btnDeleteSection){
+        if (actionEvent.getSource() == btnDeleteTicket){
             loadNewWindow("../PopUpScreens/DeleteItemWindow.fxml", "LSB: Supression d'une Section", "delete");
         }
     }
@@ -58,11 +59,11 @@ public class ControllerItemSection {
         mainStage.setScene(new Scene((Pane) loader.load()));
 
         if(action.equals("modify")){
-            PopUpScreens.ControllerModifySection controller = loader.getController();
-            controller.loadSection(section);
+            PopUpScreens.ControllerModifyTicket controller = loader.getController();
+            controller.loadSection(ticket);
         } else if (action.equals("delete")){
             PopUpScreens.ControllerDeleteItemWindow controller = loader.getController();
-            controller.loadItemToDelete("Rubrique => " + section.getName(), section.getId(), "section");
+            controller.loadItemToDelete("Rubrique => " + ticket.getId(), ticket.getId(), "section");
         }
 
         mainStage.show();
@@ -72,4 +73,5 @@ public class ControllerItemSection {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
 }
