@@ -462,13 +462,15 @@
                               <Insets />
                            </HBox.margin>
                            <padding>
-                              <Insets right="80.0" />
+                              <Insets right="50.0" />
                            </padding>
                         </Label>
                         <Label text="Statut" textFill="#727070">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
+                        </Label>
+                        <Label layoutX="416.0" layoutY="23.0" prefWidth="80.0" text="Utilisateur assigné" textFill="#727070" wrapText="true">
                            <padding>
                               <Insets right="20.0" />
                            </padding>

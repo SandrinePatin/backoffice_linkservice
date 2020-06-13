@@ -4,10 +4,7 @@ import Classes.Section;
 import Classes.Ticket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,7 +19,9 @@ public class ControllerModifyTicket {
     @FXML
     private TextArea tfDescriptionModifySection;
     @FXML
-    private CheckBox tfActiveModifySection1;
+    private ComboBox<String> cbStatutTicket;
+    @FXML
+    private TextField tfUserModifyTicket;
 
     @FXML
     private Button btnModifySectionData;
@@ -37,17 +36,21 @@ public class ControllerModifyTicket {
         actualTicket = ticket;
         tfNameModifySection.setPromptText(ticket.getDate());
         tfDescriptionModifySection.setPromptText(ticket.getDescription());
-        tfActiveModifySection1.setSelected(ticket.getStatut() == 1);
+        tfUserModifyTicket.setPromptText(ticket.getUserAssigned());
+
+        cbStatutTicket.getItems().addAll(
+                "0 - A résoudre",
+                "1 - Résolu"
+        );
+        cbStatutTicket.getSelectionModel().select(ticket.getStatut());
 
         btnCreateSectionData.setVisible(false);
         btnModifySectionData.setVisible(true);
-        tfActiveModifySection1.setVisible(true);
     }
 
     public void loadCreateWindow() {
         btnCreateSectionData.setVisible(true);
         btnModifySectionData.setVisible(false);
-        tfActiveModifySection1.setVisible(false);
     }
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
@@ -66,7 +69,8 @@ public class ControllerModifyTicket {
     private void updateSection() throws IOException, InterruptedException {
         String newName = tfNameModifySection.getText();
         String newDescription = tfDescriptionModifySection.getText();
-        int newStatusActive ;
+        String newUserAssigned = tfUserModifyTicket.getText();
+        String newStatus = cbStatutTicket.getValue();
 
         if (newName.equals("")) {
             newName = actualTicket.getDate();
@@ -74,21 +78,25 @@ public class ControllerModifyTicket {
         if (newDescription.equals("")) {
             newDescription = actualTicket.getDescription();
         }
-        if (tfActiveModifySection1.isSelected()){
-            newStatusActive = 1;
-        } else {
-            newStatusActive = 0;
+        if (newUserAssigned.equals("")){
+            newUserAssigned = actualTicket.getUserAssigned();
+        }
+        if(newStatus.contains("0")){
+            newStatus = "0";
+        } else if (newStatus.contains("1")){
+            newStatus = "1";
         }
 
-        actualTicket.updateTicket(newName, newDescription, newStatusActive);
+        actualTicket.updateTicket(newName, newDescription, newUserAssigned, newStatus);
     }
 
     private void createSection() throws IOException, InterruptedException {
         boolean error = false;
         String newName = tfNameModifySection.getText();
         String newDescription = tfDescriptionModifySection.getText();
+        String newUserAssigned = tfUserModifyTicket.getText();
 
-        actualTicket = new Ticket(0, newName, newDescription, 1);
+        actualTicket = new Ticket(0, newName, newDescription, newUserAssigned, 1);
 
         error = checkValue(newName, tfNameModifySection);
         if (newDescription.equals("")) {

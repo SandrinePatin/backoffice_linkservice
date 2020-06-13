@@ -26,6 +26,8 @@ public class ControllerItemTicket {
     private Label labelDescriptionTicket;
     @FXML
     private Label labelStatutTicket;
+    @FXML
+    private Label labelUserTicket;
 
     @FXML
     private Button btnModifyTicket;
@@ -37,15 +39,17 @@ public class ControllerItemTicket {
         labelIdTicket.setText(Integer.toString(ticket.getId()));
         labelDateTicket.setText(ticket.getDate());
         labelDescriptionTicket.setText(ticket.getDescription());
-        labelStatutTicket.setText(Integer.toString(ticket.getStatut()));
+        labelUserTicket.setText(ticket.getUserAssigned());
+        String statut = getLabelOfTicketStatus(ticket.getStatut());
+        labelStatutTicket.setText(statut);
     }
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
         if (actionEvent.getSource() == btnModifyTicket) {
-            loadNewWindow("../PopUpScreens/ModifySection.fxml", "LSB: Modification d'une Section", "modify");
+            loadNewWindow("../PopUpScreens/ModifyTicket.fxml", "LSB: Modification d'une Section", "modify");
         }
         if (actionEvent.getSource() == btnDeleteTicket){
-            loadNewWindow("../PopUpScreens/DeleteItemWindow.fxml", "LSB: Supression d'une Section", "delete");
+            ticket.closeTicket();
         }
     }
 
@@ -69,6 +73,14 @@ public class ControllerItemTicket {
         mainStage.show();
     }
 
+    private String getLabelOfTicketStatus(int status){
+        if(status == 0){
+            return "A résoudre";
+        } else if (status == 1){
+            return "Résolu";
+        }
+        return "Statut Inconnu";
+    }
 
     public void initialize(URL location, ResourceBundle resources) {
 

@@ -6,7 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox fx:id="itemC" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="695.0" spacing="20.0" style="-fx-background-color: #E2E2E2; -fx-background-radius: 5; -fx-background-insets: 0;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Items.ControllerItemTicket">
+<HBox fx:id="itemC" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="695.0" spacing="18.0" style="-fx-background-color: #E2E2E2; -fx-background-radius: 5; -fx-background-insets: 0;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Items.ControllerItemTicket">
     <children>
         <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -17,17 +17,18 @@
             </HBox.margin>
         </ImageView>
         <Label fx:id="labelIdTicket" text="ID" textFill="#686565" />
-        <Label fx:id="labelDateTicket" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="110.0" text="Date" textFill="#686565" wrapText="true">
+        <Label fx:id="labelDateTicket" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" text="Date" textFill="#686565" wrapText="true">
             <HBox.margin>
                 <Insets />
             </HBox.margin>
         </Label>
-        <Label fx:id="labelDescriptionTicket" prefWidth="200.0" text="Description" textFill="#686565" wrapText="true">
+        <Label fx:id="labelDescriptionTicket" prefWidth="180.0" text="Description" textFill="#686565" wrapText="true">
             <HBox.margin>
                 <Insets />
             </HBox.margin>
         </Label>
-        <Label fx:id="labelStatutTicket" layoutX="217.0" layoutY="28.0" prefWidth="50.0" text="Statut" textFill="#686565" wrapText="true" />
+        <Label fx:id="labelStatutTicket" layoutX="217.0" layoutY="28.0" prefWidth="60.0" text="Statut" textFill="#686565" wrapText="true" />
+      <Label fx:id="labelUserTicket" layoutX="427.0" layoutY="28.0" prefWidth="70.0" text="Utilisateur assigné" textFill="#686565" wrapText="true" />
         <Button fx:id="btnModifyTicket" mnemonicParsing="false" onAction="#handleClicks" prefHeight="10.0" style="-fx-border-color: #686565; -fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@../home/style.css" text="Modifier" textFill="#686565">
             <HBox.margin>
                 <Insets />
