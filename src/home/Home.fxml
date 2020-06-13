@@ -309,40 +309,60 @@
                </children></Pane>
             <Pane fx:id="pnlTickets" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" layoutX="45.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="80.0" style="-fx-background-color: #E2E2E2;">
+                  <Label layoutX="57.0" layoutY="25.0" text="Mes Tickets" textFill="#686565">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="60.0" style="-fx-background-color: #E2E2E2;">
                      <children>
-                        <Label text="Company Name" textFill="#727070">
+                        <Label text="ID" textFill="#727070">
                            <HBox.margin>
-                              <Insets left="50.0" />
+                              <Insets left="30.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="Airport" textFill="#727070">
+                        <Label text="Date" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="15.0" />
+                           </padding>
+                        </Label>
+                        <Label text="Description" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="50.0" />
+                           </padding>
+                        </Label>
+                        <Label text="Statut" textFill="#727070">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Label>
-                        <Label text="Delivery Date" textFill="#727070">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
+                        <Label layoutX="416.0" layoutY="23.0" prefWidth="80.0" text="Utilisateur assigné" textFill="#727070" wrapText="true">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
                         </Label>
-                        <Label text="Amount" textFill="#727070">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
-                        <Label text="Status" textFill="#727070">
+                        <Label text="Actions" textFill="#727070">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Label>
                      </children>
                   </HBox>
-                  <Label layoutX="57.0" layoutY="25.0" text="Mes Tickets" textFill="#686565">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
+                  <ScrollPane fx:id="pnItemsTickets1" layoutX="14.0" layoutY="160.0" prefWidth="746.0" stylesheets="@style.css">
+                     <content>
+                        <VBox fx:id="pnItemsTicket" prefHeight="318.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #E2E2E2;">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
                </children></Pane>
             <Pane fx:id="pnlSettings" prefHeight="200.0" prefWidth="200.0">
                <children>
@@ -392,7 +412,6 @@
                </children></Pane>
             <Pane fx:id="pnlOverview" prefHeight="554.0" prefWidth="793.0">
                <children>
-                  <TextField layoutX="590.0" layoutY="47.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #E2E2E2; -fx-border-color: #B6BAC1; -fx-border-radius: 2em;" />
                   <Label layoutX="57.0" layoutY="25.0" text="Tickets en cours" textFill="#686565">
                      <font>
                         <Font size="24.0" />
@@ -402,12 +421,12 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label text="22000" textFill="#2a73ff">
+                              <Label fx:id="totTickets" text="22000" textFill="#2a73ff">
                                  <font>
                                     <Font name="System Bold" size="26.0" />
                                  </font>
                               </Label>
-                              <Label text="Total Orders" textFill="#686565" />
+                              <Label text="Tickets Totaux" textFill="#686565" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
@@ -422,12 +441,12 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label text="1000" textFill="#fa5f7e">
+                              <Label fx:id="totalMyTickets" text="1000" textFill="#fa5f7e">
                                  <font>
                                     <Font name="System Bold" size="26.0" />
                                  </font>
                               </Label>
-                              <Label text="Peding Orders" textFill="#545252" />
+                              <Label text="Mes Tickets" textFill="#545252" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">

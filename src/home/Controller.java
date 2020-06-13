@@ -47,6 +47,8 @@ public class Controller implements Initializable {
     @FXML
     private VBox pnOverview = null;
     @FXML
+    private VBox pnItemsTicket = null;
+    @FXML
     private Button btnOverview;
     @FXML
     private Button btnTickets;
@@ -62,6 +64,12 @@ public class Controller implements Initializable {
     private Button btnTypesServices;
     @FXML
     private Button btnSignout;
+
+    //Overview
+    @FXML
+    private Label totTickets;
+    @FXML
+    private Label totalMyTickets;
 
     //Settings
     @FXML
@@ -122,20 +130,19 @@ public class Controller implements Initializable {
 
         pnlOverview.setStyle("-fx-background-color : #E2E2E2");
         pnlOverview.toFront();
+    }
+
+    public void initData(User sessionUser) {
+        userConnected = sessionUser;
+
+        String fullName = userConnected.getName() + ' ' + userConnected.getSurname();
+        userNameField.setText(fullName);
 
         try {
             loadMainData();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-
-    }
-
-    public void initData(User sessionUser){
-        userConnected = sessionUser;
-
-        String fullName = userConnected.getName() + ' ' + userConnected.getSurname();
-        userNameField.setText(fullName);
     }
 
 
@@ -156,6 +163,7 @@ public class Controller implements Initializable {
             pnlOverview.toFront();
         }
         if (actionEvent.getSource() == btnTickets) {
+            loadMyTicketsData();
             pnlTickets.setStyle("-fx-background-color : #E2E2E2");
             pnlTickets.toFront();
         }
@@ -196,7 +204,7 @@ public class Controller implements Initializable {
             loadWindow("user", "../PopUpScreens/CreateUser.fxml", "LSB: Création d'un compte Support");
         }
         if (actionEvent.getSource() == btnSignout) {
-            loadWindow("disconnection","../home/disconnectionConfirm.fxml","LinkService Backoffice");
+            loadWindow("disconnection", "../home/disconnectionConfirm.fxml", "LinkService Backoffice");
         }
     }
 
@@ -211,54 +219,34 @@ public class Controller implements Initializable {
 
     private void loadMainData() throws IOException, InterruptedException {
         clearPane(pnOverview);
+        loadStats();
 
         HttpResponse<String> response = getData("ticket", true);
-        HashMap<String, Ticket> TicketsData = new HashMap<>();
 
-        if(response.body().startsWith("i", 2)){
-            TicketsData.put("0",gson.fromJson(response.body(), Ticket.class));
-        } else {
-            TicketsData = API.decodeResponseMultipleAsTicket(response);
-        }
+        printTickets(pnOverview, response);
+    }
 
-        if(TicketsData != null){
-            Node[] nodes = new Node[10];
-            for (int i = 0; i < TicketsData.size(); i++) {
-                try {
-                    Ticket ticket = TicketsData.get(Integer.toString(i));
+    private void loadMyTicketsData() throws IOException, InterruptedException {
+        clearPane(pnItemsTicket);
 
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemTicket.fxml"));
-                    nodes[i] = loader.load();
+        HttpResponse<String> response = getMytickets();
 
-                    nodes[i].setId(Integer.toString(i));
-
-                    ControllerItemTicket controllerItemTicket = loader.getController();
-                    controllerItemTicket.setItemTicket(ticket);
-
-                    setStyleNode(nodes[i]);
-                    pnOverview.getChildren().add(nodes[i]);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } else {
-            //TODO if no section to display
-        }
+        printTickets(pnItemsTicket, response);
     }
 
     private void loadSectionData(boolean active) throws IOException, InterruptedException {
         clearPane(pnItemsSection);
 
-        HttpResponse<String> response = getData("section",active);
+        HttpResponse<String> response = getData("section", active);
         HashMap<String, Section> sectionData = new HashMap<>();
 
-        if(response.body().startsWith("i", 2)){
-            sectionData.put("0",gson.fromJson(response.body(), Section.class));
+        if (response.body().startsWith("i", 2)) {
+            sectionData.put("0", gson.fromJson(response.body(), Section.class));
         } else {
             sectionData = API.decodeResponseMultipleAsSection(response);
         }
 
-        if(sectionData != null){
+        if (sectionData != null) {
             Node[] nodes = new Node[10];
             for (int i = 0; i < sectionData.size(); i++) {
                 try {
@@ -286,12 +274,12 @@ public class Controller implements Initializable {
     private void loadTypeData(boolean active) throws IOException, InterruptedException {
         clearPane(pnItemsTypes);
 
-        HttpResponse<String> response = getData("type_service",active);
+        HttpResponse<String> response = getData("type_service", active);
         HashMap<String, TypeService> typeData = new HashMap<>();
 
-        if(response.body() != null){
-            if(response.body().startsWith("i", 2)){
-                typeData.put("0",gson.fromJson(response.body(), TypeService.class));
+        if (response.body() != null) {
+            if (response.body().startsWith("i", 2)) {
+                typeData.put("0", gson.fromJson(response.body(), TypeService.class));
             } else {
                 typeData = API.decodeResponseMultipleAsTypeService(response);
             }
@@ -326,9 +314,9 @@ public class Controller implements Initializable {
         HttpResponse<String> response = getData("user", true);
         HashMap<String, User> typeData = new HashMap<>();
 
-        if(response.body() != null){
-            if(response.body().startsWith("i", 2)){
-                typeData.put("0",gson.fromJson(response.body(), User.class));
+        if (response.body() != null) {
+            if (response.body().startsWith("i", 2)) {
+                typeData.put("0", gson.fromJson(response.body(), User.class));
             } else {
                 typeData = API.decodeResponseMultipleAsUser(response);
             }
@@ -360,12 +348,12 @@ public class Controller implements Initializable {
     private void loadServiceData(boolean active) throws IOException, InterruptedException {
         clearPane(pnItemsService);
 
-        HttpResponse<String> response = getData("service",active);
+        HttpResponse<String> response = getData("service", active);
         HashMap<String, Service> ServicesData = new HashMap<>();
 
-        if(response.body() != null){
-            if(response.body().startsWith("i", 2)){
-                ServicesData.put("0",gson.fromJson(response.body(), Service.class));
+        if (response.body() != null) {
+            if (response.body().startsWith("i", 2)) {
+                ServicesData.put("0", gson.fromJson(response.body(), Service.class));
             } else {
                 ServicesData = API.decodeResponseMultipleAsService(response);
             }
@@ -437,9 +425,9 @@ public class Controller implements Initializable {
         HashMap<String, Object> inputData = new HashMap<>();
         inputData.put("table", table);
 
-        if(table.equals("type_service") || table.equals("section") || table.equals("user")){
+        if (table.equals("type_service") || table.equals("section") || table.equals("user")) {
             HashMap<String, String> inputValues = new HashMap<>();
-            inputValues.put("where"," WHERE active=" + (active ? 1 : 0));
+            inputValues.put("where", " WHERE active=" + (active ? 1 : 0));
             inputData.put("values", inputValues);
             action = "readWithFilter";
         } else {
@@ -448,6 +436,83 @@ public class Controller implements Initializable {
 
         inputJson = gson.toJson(inputData);
         return API.sendRequest(inputJson, action);
+    }
+
+    private HttpResponse<String> getMytickets() throws IOException, InterruptedException {
+        String inputJson;
+        HashMap<String, Object> inputData = new HashMap<>();
+        inputData.put("table", "ticket");
+        HashMap<String, String> inputValues = new HashMap<>();
+        inputValues.put("where", " WHERE id_user_assigned=" + userConnected.getId());
+        inputData.put("values", inputValues);
+        inputJson = gson.toJson(inputData);
+        return API.sendRequest(inputJson, "readWithFilter");
+    }
+
+    private void printTickets(VBox paneWhereDisplay, HttpResponse<String> TicketToDisplay) {
+        HashMap<String, Ticket> TicketsData = new HashMap<>();
+
+        if (TicketToDisplay.body().startsWith("i", 2)) {
+            TicketsData.put("0", gson.fromJson(TicketToDisplay.body(), Ticket.class));
+        } else {
+            TicketsData = API.decodeResponseMultipleAsTicket(TicketToDisplay);
+        }
+
+        if (TicketsData != null) {
+            Node[] nodes = new Node[10];
+            for (int i = 0; i < TicketsData.size(); i++) {
+                try {
+                    Ticket ticket = TicketsData.get(Integer.toString(i));
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../Items/ItemTicket.fxml"));
+                    nodes[i] = loader.load();
+
+                    nodes[i].setId(Integer.toString(i));
+
+                    ControllerItemTicket controllerItemTicket = loader.getController();
+                    controllerItemTicket.setItemTicket(ticket);
+
+                    setStyleNode(nodes[i]);
+                    paneWhereDisplay.getChildren().add(nodes[i]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            //TODO if no section to display
+        }
+    }
+
+    private void loadStats() throws IOException, InterruptedException {
+        HttpResponse<String> counterTotalTickets = getData("ticket", true);
+        HttpResponse<String> counterMyTickets = getMytickets();
+
+        if (counterTotalTickets == null) {
+            totTickets.setText("0");
+        } else {
+            totTickets.setText(Integer.toString(getNumberOfTickets(counterTotalTickets)));
+        }
+        //System.out.println(counterMyTickets);
+        if (counterMyTickets == null) {
+            totalMyTickets.setText("0");
+        } else {
+            totalMyTickets.setText(Integer.toString(getNumberOfTickets(counterMyTickets)));
+        }
+
+    }
+
+    private int getNumberOfTickets(HttpResponse<String> tickets) {
+        HashMap<String, Ticket> TicketsData = new HashMap<>();
+        if (tickets.body().startsWith("i", 2)) {
+            TicketsData.put("0", gson.fromJson(tickets.body(), Ticket.class));
+        } else {
+            TicketsData = API.decodeResponseMultipleAsTicket(tickets);
+        }
+
+        if (TicketsData != null) {
+            return TicketsData.size();
+        }
+        return 0;
     }
 
     private void loadWindow(String action, String window, String title) throws IOException {
@@ -474,7 +539,7 @@ public class Controller implements Initializable {
                 controller.loadCreateWindow(userConnected);
                 break;
             }
-            case "disconnection":{
+            case "disconnection": {
                 Stage primaryStage = (Stage) btnSignout.getScene().getWindow();
                 home.DisconnectionConfirm controller = loader.getController();
                 controller.initWindow(primaryStage);
@@ -483,13 +548,13 @@ public class Controller implements Initializable {
         mainStage.show();
     }
 
-    private void clearPane(Pane paneToClear){
+    private void clearPane(Pane paneToClear) {
         if (paneToClear.getChildren().size() > 0) {
             paneToClear.getChildren().clear();
         }
     }
 
-    private void setStyleNode(Node node){
+    private void setStyleNode(Node node) {
         node.setOnMouseEntered(event -> {
             node.setStyle("-fx-background-color : #A09B9B");
         });
