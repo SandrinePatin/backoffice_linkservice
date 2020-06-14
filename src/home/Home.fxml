@@ -431,12 +431,12 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label text="1500" textFill="#26bfbc">
+                              <Label fx:id="TotTicketsToResolve" text="1500" textFill="#26bfbc">
                                  <font>
                                     <Font name="System Bold" size="26.0" />
                                  </font>
                               </Label>
-                              <Label text="Total delivered" textFill="#545252" />
+                              <Label text="Tickets à résoudre" textFill="#545252" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
@@ -447,16 +447,6 @@
                                  </font>
                               </Label>
                               <Label text="Mes Tickets" textFill="#545252" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label text="780" textFill="#de0000">
-                                 <font>
-                                    <Font name="System Bold" size="26.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Orders on Hold" textFill="#545252" />
                            </children>
                         </VBox>
                      </children>

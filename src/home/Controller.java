@@ -70,6 +70,8 @@ public class Controller implements Initializable {
     private Label totTickets;
     @FXML
     private Label totalMyTickets;
+    @FXML
+    private Label TotTicketsToResolve;
 
     //Settings
     @FXML
@@ -229,7 +231,7 @@ public class Controller implements Initializable {
     private void loadMyTicketsData() throws IOException, InterruptedException {
         clearPane(pnItemsTicket);
 
-        HttpResponse<String> response = getMytickets();
+        HttpResponse<String> response = getTicketsWithAFilter("mytickets");
 
         printTickets(pnItemsTicket, response);
     }
@@ -438,12 +440,19 @@ public class Controller implements Initializable {
         return API.sendRequest(inputJson, action);
     }
 
-    private HttpResponse<String> getMytickets() throws IOException, InterruptedException {
+    private HttpResponse<String> getTicketsWithAFilter(String filter) throws IOException, InterruptedException {
+        String where = "";
+        if(filter.equals("mytickets")){
+            where = " WHERE id_user_assigned=" + userConnected.getId();
+        } else if (filter.equals("ticketsToResolve")){
+            where = " WHERE statut=0";
+        }
+
         String inputJson;
         HashMap<String, Object> inputData = new HashMap<>();
         inputData.put("table", "ticket");
         HashMap<String, String> inputValues = new HashMap<>();
-        inputValues.put("where", " WHERE id_user_assigned=" + userConnected.getId());
+        inputValues.put("where", where);
         inputData.put("values", inputValues);
         inputJson = gson.toJson(inputData);
         return API.sendRequest(inputJson, "readWithFilter");
@@ -485,7 +494,8 @@ public class Controller implements Initializable {
 
     private void loadStats() throws IOException, InterruptedException {
         HttpResponse<String> counterTotalTickets = getData("ticket", true);
-        HttpResponse<String> counterMyTickets = getMytickets();
+        HttpResponse<String> counterMyTickets = getTicketsWithAFilter("mytickets");
+        HttpResponse<String> counterTicketsToResolve = getTicketsWithAFilter("ticketsToResolve");
 
         if (counterTotalTickets == null) {
             totTickets.setText("0");
@@ -498,6 +508,14 @@ public class Controller implements Initializable {
         } else {
             totalMyTickets.setText(Integer.toString(getNumberOfTickets(counterMyTickets)));
         }
+
+        if (counterMyTickets == null) {
+            TotTicketsToResolve.setText("0");
+        } else {
+            TotTicketsToResolve.setText(Integer.toString(getNumberOfTickets(counterMyTickets)));
+        }
+        
+        
 
     }
 
