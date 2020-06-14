@@ -1,7 +1,7 @@
 package PopUpScreens;
 
-import Classes.Section;
 import Classes.Ticket;
+import Classes.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -9,10 +9,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class ControllerModifyTicket {
     Ticket actualTicket;
+    int idUserCreator;
 
     @FXML
     private TextField tfNameModifySection;
@@ -24,9 +29,9 @@ public class ControllerModifyTicket {
     private TextField tfUserModifyTicket;
 
     @FXML
-    private Button btnModifySectionData;
+    private Button btnModifyTicketData;
     @FXML
-    private Button btnCreateSectionData;
+    private Button btnCreateTicketData;
 
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,39 +39,40 @@ public class ControllerModifyTicket {
 
     public void loadSection(Ticket ticket) {
         actualTicket = ticket;
+
         tfNameModifySection.setPromptText(ticket.getDate());
         tfDescriptionModifySection.setPromptText(ticket.getDescription());
         tfUserModifyTicket.setPromptText(ticket.getUserAssigned());
 
-        cbStatutTicket.getItems().addAll(
-                "0 - A résoudre",
-                "1 - Résolu"
-        );
         cbStatutTicket.getSelectionModel().select(ticket.getStatut());
 
-        btnCreateSectionData.setVisible(false);
-        btnModifySectionData.setVisible(true);
+        setStatusAvailable();
+
+        btnCreateTicketData.setVisible(false);
+        btnModifyTicketData.setVisible(true);
     }
 
-    public void loadCreateWindow() {
-        btnCreateSectionData.setVisible(true);
-        btnModifySectionData.setVisible(false);
+    public void loadCreateWindow(int idUser) {
+        idUserCreator = idUser;
+        setStatusAvailable();
+        btnCreateTicketData.setVisible(true);
+        btnModifyTicketData.setVisible(false);
     }
 
     public void handleClicks(ActionEvent actionEvent) throws IOException, InterruptedException {
-        if (actionEvent.getSource() == btnModifySectionData) {
-            updateSection();
+        if (actionEvent.getSource() == btnModifyTicketData) {
+            updateTicket();
 
-            Stage primaryStage = (Stage) btnModifySectionData.getScene().getWindow();
+            Stage primaryStage = (Stage) btnModifyTicketData.getScene().getWindow();
             primaryStage.close();
         }
-        if (actionEvent.getSource() == btnCreateSectionData) {
+        if (actionEvent.getSource() == btnCreateTicketData) {
 
-            createSection();
+            createTicket();
         }
     }
 
-    private void updateSection() throws IOException, InterruptedException {
+    private void updateTicket() throws IOException, InterruptedException {
         String newName = tfNameModifySection.getText();
         String newDescription = tfDescriptionModifySection.getText();
         String newUserAssigned = tfUserModifyTicket.getText();
@@ -90,22 +96,25 @@ public class ControllerModifyTicket {
         actualTicket.updateTicket(newName, newDescription, newUserAssigned, newStatus);
     }
 
-    private void createSection() throws IOException, InterruptedException {
+    private void createTicket() throws IOException, InterruptedException {
         boolean error = false;
-        String newName = tfNameModifySection.getText();
         String newDescription = tfDescriptionModifySection.getText();
         String newUserAssigned = tfUserModifyTicket.getText();
+        String todayDate;
 
-        actualTicket = new Ticket(0, newName, newDescription, newUserAssigned, 1);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        todayDate = dtf.format(now);
 
-        error = checkValue(newName, tfNameModifySection);
+        actualTicket = new Ticket(0, todayDate, newDescription, idUserCreator, newUserAssigned, 0);
+
         if (newDescription.equals("")) {
             tfDescriptionModifySection.setStyle("-fx-border-color: red");
             error = true;
         }
         if (error != true) {
             actualTicket.createTicket();
-            Stage primaryStage = (Stage) btnCreateSectionData.getScene().getWindow();
+            Stage primaryStage = (Stage) btnCreateTicketData.getScene().getWindow();
             primaryStage.close();
         }
 
@@ -119,4 +128,14 @@ public class ControllerModifyTicket {
         return false;
     }
 
+    private void setStatusAvailable(){
+        cbStatutTicket.getItems().addAll(
+                "0 - A résoudre",
+                "1 - Résolu"
+        );
+    }
+
+    private void setUserAvailable(){
+
+    }
 }

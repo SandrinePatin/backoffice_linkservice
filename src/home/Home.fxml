@@ -314,6 +314,11 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
+                  <Button id="btnCreateSection" fx:id="btnCreateTicket" layoutX="60.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Créer un ticket" textFill="#49c935">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                   <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="60.0" style="-fx-background-color: #E2E2E2;">
                      <children>
                         <Label text="ID" textFill="#727070">
@@ -500,11 +505,6 @@
                         </VBox>
                      </content>
                   </ScrollPane>
-                  <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="749.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8_Search_52px.png" />
-                     </image>
-                  </ImageView>
                </children>
             </Pane>
          </children>

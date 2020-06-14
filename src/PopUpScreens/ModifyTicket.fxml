@@ -14,27 +14,24 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="17.0" text="Nom" />
-                        <TextField fx:id="tfNameModifySection" layoutX="10.0" layoutY="12.0" promptText="Nom de la rubrique" GridPane.columnIndex="1" />
-                        <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="17.0" text="Description" wrapText="true" GridPane.rowIndex="1" />
-                        <TextArea fx:id="tfDescriptionModifySection" promptText="Description de la rubrique " wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="256.0" text="Statut" GridPane.rowIndex="2" />
-                  <ComboBox fx:id="cbStatutTicket" promptText="Statut" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="11.0" text="Utilisateur assigné" GridPane.rowIndex="3" />
-                  <TextField fx:id="tfUserModifyTicket" layoutX="113.0" layoutY="6.0" promptText="Utilisateur assigné" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="17.0" text="Description" wrapText="true" />
+                        <TextArea fx:id="tfDescriptionModifySection" promptText="Description de la rubrique " wrapText="true" GridPane.columnIndex="1" />
+                  <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="256.0" text="Statut" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="cbStatutTicket" promptText="Statut" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="11.0" text="Utilisateur assigné" GridPane.rowIndex="2" />
+                  <TextField fx:id="tfUserModifyTicket" layoutX="113.0" layoutY="6.0" promptText="Utilisateur assigné" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="15.0" />
                     </VBox.margin>
                 </GridPane>
-                <Button fx:id="btnModifySectionData" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent; -fx-border-color: #686565;" stylesheets="@../home/style.css" text="Modifier" />
-                <Button fx:id="btnCreateSectionData" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent; -fx-border-color: #686565;" stylesheets="@../home/style.css" text="Créer" />
+                <Button fx:id="btnModifyTicketData" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent; -fx-border-color: #686565;" stylesheets="@../home/style.css" text="Modifier" />
+                <Button fx:id="btnCreateTicketData" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent; -fx-border-color: #686565;" stylesheets="@../home/style.css" text="Créer" />
             </children>
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

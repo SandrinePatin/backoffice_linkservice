@@ -73,6 +73,10 @@ public class Controller implements Initializable {
     @FXML
     private Label TotTicketsToResolve;
 
+    //Tickets
+    @FXML
+    private Button btnCreateTicket;
+
     //Settings
     @FXML
     private Button btnModifyUser;
@@ -204,6 +208,9 @@ public class Controller implements Initializable {
         }
         if (actionEvent.getSource() == btnCreateSupport) {
             loadWindow("user", "../PopUpScreens/CreateUser.fxml", "LSB: Création d'un compte Support");
+        }
+        if (actionEvent.getSource() == btnCreateTicket) {
+            loadWindow("ticket", "../PopUpScreens/ModifyTicket.fxml", "LSB: Création d'un ticket");
         }
         if (actionEvent.getSource() == btnSignout) {
             loadWindow("disconnection", "../home/disconnectionConfirm.fxml", "LinkService Backoffice");
@@ -509,14 +516,11 @@ public class Controller implements Initializable {
             totalMyTickets.setText(Integer.toString(getNumberOfTickets(counterMyTickets)));
         }
 
-        if (counterMyTickets == null) {
+        if (counterTicketsToResolve == null) {
             TotTicketsToResolve.setText("0");
         } else {
-            TotTicketsToResolve.setText(Integer.toString(getNumberOfTickets(counterMyTickets)));
+            TotTicketsToResolve.setText(Integer.toString(getNumberOfTickets(counterTicketsToResolve)));
         }
-        
-        
-
     }
 
     private int getNumberOfTickets(HttpResponse<String> tickets) {
@@ -561,6 +565,11 @@ public class Controller implements Initializable {
                 Stage primaryStage = (Stage) btnSignout.getScene().getWindow();
                 home.DisconnectionConfirm controller = loader.getController();
                 controller.initWindow(primaryStage);
+            }
+            case "ticket":{
+                PopUpScreens.ControllerModifyTicket controller = loader.getController();
+                controller.loadCreateWindow(userConnected.getId());
+                break;
             }
         }
         mainStage.show();

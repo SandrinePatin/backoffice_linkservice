@@ -11,14 +11,15 @@ public class Ticket {
     private String date;
     private String description;
     private String userAssigned;
+    private int userCreator;
     private int statut;
 
-    public Ticket(int idTicket, String da, String de, String uA, int s) {
+    public Ticket(int idTicket, String da, String de, int userC, String uA, int s) {
         id = idTicket;
         date = da.substring(0,10);
         description = de;
         statut = s;
-        System.out.println(uA);
+        userCreator = userC;
 
         userAssigned = Objects.requireNonNullElse(uA, "No user");
 
@@ -73,6 +74,11 @@ public class Ticket {
             inputValues.put("date", date);
             inputValues.put("description", description);
             inputValues.put("statut", Integer.toString(statut));
+            inputValues.put("id_user_creator", Integer.toString(userCreator));
+
+            if(!userAssigned.equals("")){
+                inputValues.put("id_user_assigned", userAssigned);
+            }
         }
 
         if (action.equals("update")) {
@@ -83,9 +89,9 @@ public class Ticket {
         inputData.put("table", "ticket");
         inputData.put("values", inputValues);
         String inputJson = gson.toJson(inputData);
-
+        System.out.println(inputJson);
         var response = API.sendRequest(inputJson, action);
-
+        System.out.println(response.body());
         //TODO: if API is disconnected
     }
 }
