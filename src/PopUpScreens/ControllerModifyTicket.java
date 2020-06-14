@@ -1,7 +1,6 @@
 package PopUpScreens;
 
 import Classes.Ticket;
-import Classes.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -9,8 +8,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -19,8 +16,6 @@ public class ControllerModifyTicket {
     Ticket actualTicket;
     int idUserCreator;
 
-    @FXML
-    private TextField tfNameModifySection;
     @FXML
     private TextArea tfDescriptionModifySection;
     @FXML
@@ -40,9 +35,8 @@ public class ControllerModifyTicket {
     public void loadSection(Ticket ticket) {
         actualTicket = ticket;
 
-        tfNameModifySection.setPromptText(ticket.getDate());
         tfDescriptionModifySection.setPromptText(ticket.getDescription());
-        tfUserModifyTicket.setPromptText(ticket.getUserAssigned());
+        tfUserModifyTicket.setPromptText(ticket.getId_user_assigned());
 
         cbStatutTicket.getSelectionModel().select(ticket.getStatut());
 
@@ -73,19 +67,15 @@ public class ControllerModifyTicket {
     }
 
     private void updateTicket() throws IOException, InterruptedException {
-        String newName = tfNameModifySection.getText();
         String newDescription = tfDescriptionModifySection.getText();
         String newUserAssigned = tfUserModifyTicket.getText();
         String newStatus = cbStatutTicket.getValue();
 
-        if (newName.equals("")) {
-            newName = actualTicket.getDate();
-        }
         if (newDescription.equals("")) {
             newDescription = actualTicket.getDescription();
         }
         if (newUserAssigned.equals("")){
-            newUserAssigned = actualTicket.getUserAssigned();
+            newUserAssigned = actualTicket.getId_user_assigned();
         }
         if(newStatus.contains("0")){
             newStatus = "0";
@@ -93,7 +83,7 @@ public class ControllerModifyTicket {
             newStatus = "1";
         }
 
-        actualTicket.updateTicket(newName, newDescription, newUserAssigned, newStatus);
+        actualTicket.updateTicket(newDescription, newUserAssigned, newStatus);
     }
 
     private void createTicket() throws IOException, InterruptedException {

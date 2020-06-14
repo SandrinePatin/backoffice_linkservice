@@ -1,6 +1,5 @@
 package Items;
 
-import Classes.Section;
 import Classes.Ticket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +38,7 @@ public class ControllerItemTicket {
         labelIdTicket.setText(Integer.toString(ticket.getId()));
         labelDateTicket.setText(ticket.getDate());
         labelDescriptionTicket.setText(ticket.getDescription());
-        labelUserTicket.setText(ticket.getUserAssigned());
+        labelUserTicket.setText(ticket.getId_user_assigned());
         String statut = getLabelOfTicketStatus(ticket.getStatut());
         labelStatutTicket.setText(statut);
     }

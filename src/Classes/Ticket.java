@@ -10,8 +10,8 @@ public class Ticket {
     private int id;
     private String date;
     private String description;
-    private String userAssigned;
-    private int userCreator;
+    private String id_user_assigned;
+    private int id_user_creator;
     private int statut;
 
     public Ticket(int idTicket, String da, String de, int userC, String uA, int s) {
@@ -19,9 +19,9 @@ public class Ticket {
         date = da.substring(0,10);
         description = de;
         statut = s;
-        userCreator = userC;
+        id_user_creator = userC;
 
-        userAssigned = Objects.requireNonNullElse(uA, "No user");
+        id_user_assigned = Objects.requireNonNullElse(uA, "No user");
 
     }
 
@@ -37,11 +37,11 @@ public class Ticket {
         return description;
     }
 
-    public String getUserAssigned() {
-        if (userAssigned == null) {
+    public String getId_user_assigned() {
+        if (id_user_assigned == null) {
             return "No user";
         }
-        return userAssigned;
+        return id_user_assigned;
     }
 
     public int getStatut() {
@@ -52,10 +52,10 @@ public class Ticket {
         updateInDatabase("create");
     }
 
-    public void updateTicket(String newDate, String newDescription, String newUserAssigned, String newStatus) throws IOException, InterruptedException {
-        date = newDate.substring(0, 10);
+    public void updateTicket(String newDescription, String newUserAssigned, String newStatus) throws IOException, InterruptedException {
+        date = date.substring(0, 10);
         description = newDescription;
-        userAssigned = newUserAssigned;
+        id_user_assigned = newUserAssigned;
         statut = Integer.parseInt(newStatus);
 
         updateInDatabase("update");
@@ -74,10 +74,10 @@ public class Ticket {
             inputValues.put("date", date);
             inputValues.put("description", description);
             inputValues.put("statut", Integer.toString(statut));
-            inputValues.put("id_user_creator", Integer.toString(userCreator));
+            inputValues.put("id_user_creator", Integer.toString(id_user_creator));
 
-            if(!userAssigned.equals("")){
-                inputValues.put("id_user_assigned", userAssigned);
+            if(id_user_assigned != null && !id_user_assigned.equals("")){
+                inputValues.put("id_user_assigned", id_user_assigned);
             }
         }
 
