@@ -6,24 +6,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="402.0" prefWidth="276.0" spacing="10.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/LinkServiceLogo.jpg" />
+         </image>
+      </ImageView>
       <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Linkservice">
          <font>
             <Font name="System Font" size="21.0" />
          </font>
-         <graphic>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/LinkServiceLogo.jpg" />
-               </image>
-            </ImageView>
-         </graphic>
       </Label>
-      <Label text="Nom d'utilisateur" />
+      <Label text="Adresse Email" />
       <TextField fx:id="username" />
       <Label layoutX="10.0" layoutY="10.0" text="Mot de passe" />
       <PasswordField fx:id="password" />
+      <Label id="errorLabel" fx:id="errorLabel" style="visibility: false;" stylesheets="@firstStyle.css" text="Cette combinaison nous est inconnue" textFill="#fc0000" wrapText="true" />
       <Button fx:id="connectBtn" mnemonicParsing="false" onAction="#handleClicks" text="Button" />
    </children>
    <padding>

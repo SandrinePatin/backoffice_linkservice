@@ -275,8 +275,6 @@ public class Controller implements Initializable {
                     e.printStackTrace();
                 }
             }
-        } else {
-            //TODO if no section to display
         }
     }
 
@@ -312,8 +310,6 @@ public class Controller implements Initializable {
                     e.printStackTrace();
                 }
             }
-        } else {
-            //TODO : no item to display
         }
     }
 
@@ -349,8 +345,6 @@ public class Controller implements Initializable {
                     e.printStackTrace();
                 }
             }
-        } else {
-            //TODO : no item to display
         }
     }
 
@@ -386,8 +380,6 @@ public class Controller implements Initializable {
                     e.printStackTrace();
                 }
             }
-        } else {
-            //TODO : no item to display
         }
     }
 
@@ -494,8 +486,6 @@ public class Controller implements Initializable {
                     e.printStackTrace();
                 }
             }
-        } else {
-            //TODO if no section to display
         }
     }
 

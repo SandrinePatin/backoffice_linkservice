@@ -35,7 +35,7 @@ public class ControllerItemService {
         service = s;
         labelIdService.setText(Integer.toString(service.getId()));
         labelNameService.setText(service.getName());
-        labelDateService.setText(service.getDate());
+        labelDateService.setText(service.getDate().substring(0, 10));
         labelTypeService.setText(Integer.toString(service.getId_type()));
         labelCreatorService.setText(Integer.toString(service.getId_creator()));
     }

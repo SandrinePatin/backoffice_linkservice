@@ -36,7 +36,7 @@ public class ControllerItemTicket {
     public void setItemTicket(Ticket t) {
         ticket = t;
         labelIdTicket.setText(Integer.toString(ticket.getId()));
-        labelDateTicket.setText(ticket.getDate());
+        labelDateTicket.setText(ticket.getDate().substring(0, 10));
         labelDescriptionTicket.setText(ticket.getDescription());
         labelUserTicket.setText(ticket.getId_user_assigned());
         String statut = getLabelOfTicketStatus(ticket.getStatut());

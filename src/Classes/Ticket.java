@@ -92,6 +92,5 @@ public class Ticket {
         System.out.println(inputJson);
         var response = API.sendRequest(inputJson, action);
         System.out.println(response.body());
-        //TODO: if API is disconnected
     }
 }

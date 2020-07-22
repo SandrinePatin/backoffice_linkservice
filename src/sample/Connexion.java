@@ -47,12 +47,13 @@ public class Connexion {
 
         var response = API.sendRequest(inputJson, "connection");
 
-        //TODO: if API is down
-
         if(response.body().equals("null")){
+            System.out.println("ici");
             return null;
         } else {
+            System.out.println(gson.fromJson(response.body(),User.class).getId());
             return gson.fromJson(response.body(),User.class);
+
         }
     }
 

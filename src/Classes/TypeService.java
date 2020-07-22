@@ -68,6 +68,6 @@ public class TypeService {
         String inputJson = gson.toJson(inputData);
 
         var response = API.sendRequest(inputJson, action);
-        //TODO: if API is disconnected
+
     }
 }

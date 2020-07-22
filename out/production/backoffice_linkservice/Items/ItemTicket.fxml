@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:id="itemC" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="695.0" spacing="18.0" style="-fx-background-color: #E2E2E2; -fx-background-radius: 5; -fx-background-insets: 0;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Items.ControllerItemTicket">
+    <children>
+        <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/icons8_GPS_Antenna_64px_1.png" />
+            </image>
+            <HBox.margin>
+                <Insets left="10.0" />
+            </HBox.margin>
+        </ImageView>
+        <Label fx:id="labelIdTicket" text="ID" textFill="#686565" />
+        <Label fx:id="labelDateTicket" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" text="Date" textFill="#686565" wrapText="true">
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+        </Label>
+        <Label fx:id="labelDescriptionTicket" prefWidth="180.0" text="Description" textFill="#686565" wrapText="true">
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+        </Label>
+        <Label fx:id="labelStatutTicket" layoutX="217.0" layoutY="28.0" prefWidth="60.0" text="Statut" textFill="#686565" wrapText="true" />
+      <Label fx:id="labelUserTicket" layoutX="427.0" layoutY="28.0" prefWidth="70.0" text="Utilisateur assigné" textFill="#686565" wrapText="true" />
+        <Button fx:id="btnModifyTicket" mnemonicParsing="false" onAction="#handleClicks" prefHeight="10.0" style="-fx-border-color: #686565; -fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@../home/style.css" text="Modifier" textFill="#686565">
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+        </Button>
+        <Button fx:id="btnDeleteTicket" layoutX="610.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="10.0" style="-fx-border-color: #686565; -fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@../home/style.css" text="Clore" textFill="#686565" />
+    </children>
+    <effect>
+        <DropShadow blurType="GAUSSIAN" height="5.0" radius="2.0" width="5.0" />
+    </effect>
+</HBox>

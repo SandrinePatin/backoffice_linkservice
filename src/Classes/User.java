@@ -106,6 +106,5 @@ public class User {
 
         var response = API.sendRequest(inputJson, action);
 
-        //TODO: if API is disconnected
     }
 }

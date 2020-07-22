@@ -13,17 +13,17 @@
          <children>
             <ImageView fitHeight="73.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/jimmy-fallon.png" />
+                  <Image url="@../images/userProfile_byFreepik.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" top="50.0" />
                </VBox.margin></ImageView>
-            <Label text="Jimmy Fallon" textFill="#686565">
+            <Label id="userNameField" fx:id="userNameField" text="Your Name" textFill="#686565">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="btnOverview" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Overview" textFill="#686565">
+            <Button fx:id="btnOverview" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Menu principal" textFill="#686565">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -41,7 +41,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Orders">
+            <Button fx:id="btnTickets" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Mes tickets">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -53,19 +53,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Customers">
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8_Person_32px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-            </Button>
-            <Button fx:id="btnMenus" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Menus">
+            <Button fx:id="btnForum" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Forum">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -77,11 +65,11 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Packages">
+            <Button fx:id="btnTypesServices" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Types de Services">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_Box_32px.png" />
+                        <Image url="@../images/icons8_Services_32px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -89,7 +77,31 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="btnSettings" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Settings">
+            <Button fx:id="btnServices" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Services">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Services_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnUsers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Utilisateurs">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Person_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnSettings" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Paramètres">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -101,7 +113,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="btnSignout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Sign Out">
+            <Button fx:id="btnSignout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Déconnexion">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -117,13 +129,295 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #E2E2E2;">
          <children>
-            <Pane fx:id="pnlCustomer" prefHeight="200.0" prefWidth="200.0" />
-            <Pane fx:id="pnlOrders" prefHeight="200.0" prefWidth="200.0" />
-            <Pane fx:id="pnlMenus" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="pnlTypesServices" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="57.0" layoutY="25.0" text="Type de Services" textFill="#686565">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Button id="btnCreateSection" fx:id="btnCreateType" layoutX="60.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Créer un type de Service" textFill="#49c935">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="btnDisplayDesac" fx:id="btnDisplayDesac" layoutX="270.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Afficher les types désactivés" textFill="#c35924">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="10.0" style="-fx-background-color: #E2E2E2;">
+                     <children>
+                        <Label text="Id" textFill="#727070">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="80.0" text="Nom" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label prefWidth="200.0" text="Description" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label layoutX="231.0" layoutY="23.0" prefWidth="80.0" text="Image" textFill="#727070" />
+                        <Label prefWidth="80.0" text="Active" textFill="#727070" />
+                        <Label layoutX="257.0" layoutY="23.0" text="Action" textFill="#727070" />
+                     </children>
+                  </HBox>
+                  <ScrollPane fx:id="pnItemTypes" layoutX="14.0" layoutY="160.0" prefWidth="746.0" stylesheets="@style.css">
+                     <content>
+                        <VBox fx:id="pnItemsTypes" prefHeight="318.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #E2E2E2;">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
+            <Pane fx:id="pnlForum" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="57.0" layoutY="25.0" text="Forum" textFill="#686565">
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Button id="btnCreateSection" fx:id="btnCreateSection" layoutX="60.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Créer une rubrique" textFill="#49c935">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="btnDisplayDesac" fx:id="btnDisplayDesacSection" layoutX="270.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Afficher les Rubriques désactivées" textFill="#c35924">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="30.0" style="-fx-background-color: #E2E2E2;">
+                     <children>
+                        <Label text="Id" textFill="#727070">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" text="Nom" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label prefWidth="170.0" text="Description" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label layoutX="231.0" layoutY="23.0" prefWidth="50.0" text="Active" textFill="#727070" />
+                        <Label layoutX="257.0" layoutY="23.0" text="Action" textFill="#727070" />
+                     </children>
+                  </HBox>
+                  <ScrollPane fx:id="pnItemSection" layoutX="14.0" layoutY="160.0" prefWidth="746.0" stylesheets="@style.css">
+                     <content>
+                        <VBox fx:id="pnItemsSection" prefHeight="318.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #E2E2E2;">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children></Pane>
+            <Pane fx:id="pnlServices" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="57.0" layoutY="25.0" text="Services" textFill="#686565">
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="30.0" style="-fx-background-color: #E2E2E2;">
+                     <children>
+                        <Label text="Id" textFill="#727070">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" text="Nom" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label prefWidth="150.0" text="Date" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label layoutX="511.0" layoutY="23.0" prefWidth="65.0" text="Type" textFill="#727070" />
+                        <Label layoutX="231.0" layoutY="23.0" prefWidth="75.0" text="Creator" textFill="#727070" />
+                        <Label layoutX="257.0" layoutY="23.0" prefHeight="100.0" text="Action" textFill="#727070" />
+                     </children>
+                  </HBox>
+                  <ScrollPane fx:id="pnItemService" layoutX="14.0" layoutY="160.0" prefWidth="746.0" stylesheets="@style.css">
+                     <content>
+                        <VBox fx:id="pnItemsService" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #E2E2E2;">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children></Pane>
+            <Pane fx:id="pnlUsers" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="57.0" layoutY="25.0" text="Utilisateurs" textFill="#686565">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Button id="btnCreateSection" fx:id="btnCreateSupport" layoutX="60.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Créer un compte support" textFill="#49c935">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="30.0" style="-fx-background-color: #E2E2E2;">
+                     <children>
+                        <Label text="Id" textFill="#727070">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Email" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label prefWidth="100.0" text="Points" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label layoutX="231.0" layoutY="23.0" prefWidth="100.0" text="Type" textFill="#727070" />
+                        <Label layoutX="257.0" layoutY="23.0" text="Action" textFill="#727070" />
+                     </children>
+                  </HBox>
+                  <ScrollPane fx:id="pnItemSection1" layoutX="14.0" layoutY="160.0" prefWidth="746.0" stylesheets="@style.css">
+                     <content>
+                        <VBox fx:id="pnItemsUser" prefHeight="318.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #E2E2E2;">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children></Pane>
+            <Pane fx:id="pnlTickets" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="57.0" layoutY="25.0" text="Mes Tickets" textFill="#686565">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Button id="btnCreateSection" fx:id="btnCreateTicket" layoutX="60.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Créer un ticket" textFill="#49c935">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="125.0" prefHeight="42.0" prefWidth="712.0" spacing="60.0" style="-fx-background-color: #E2E2E2;">
+                     <children>
+                        <Label text="ID" textFill="#727070">
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label text="Date" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="15.0" />
+                           </padding>
+                        </Label>
+                        <Label text="Description" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="50.0" />
+                           </padding>
+                        </Label>
+                        <Label text="Statut" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label layoutX="416.0" layoutY="23.0" prefWidth="80.0" text="Utilisateur assigné" textFill="#727070" wrapText="true">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </Label>
+                        <Label text="Actions" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <ScrollPane fx:id="pnItemsTickets1" layoutX="14.0" layoutY="160.0" prefWidth="746.0" stylesheets="@style.css">
+                     <content>
+                        <VBox fx:id="pnItemsTicket" prefHeight="318.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #E2E2E2;">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children></Pane>
+            <Pane fx:id="pnlSettings" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="57.0" layoutY="25.0" text="Paramètres" textFill="#686565">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <GridPane alignment="TOP_RIGHT" layoutX="45.0" layoutY="100.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label contentDisplay="RIGHT" minWidth="-Infinity" text="Nom" />
+                        <TextField fx:id="tfName" minWidth="-Infinity" promptText="Your Name" GridPane.columnIndex="1" />
+                        <Label text="Prénom" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfSurname" minWidth="-Infinity" promptText="Your Surname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Email" GridPane.rowIndex="2" />
+                        <Label fx:id="tfEmail" layoutX="20.0" layoutY="87.0" text="Email" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Date de Naissance" GridPane.rowIndex="3">
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding>
+                        </Label>
+                        <DatePicker fx:id="dfBirthdate" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Adresse" GridPane.rowIndex="4" />
+                        <TextField fx:id="tfAdress" minWidth="-Infinity" promptText="Adress" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Ville" GridPane.rowIndex="5" />
+                        <TextField fx:id="tfCity" minWidth="-Infinity" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Button fx:id="btnModifyUser" mnemonicParsing="false" onAction="#handleClicks" text="Modifier" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+                        <Button fx:id="btnModifyPassword" layoutX="20.0" layoutY="202.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleClicks" text="Modifier mon mot de passe" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+               </children></Pane>
             <Pane fx:id="pnlOverview" prefHeight="554.0" prefWidth="793.0">
                <children>
-                  <TextField layoutX="590.0" layoutY="47.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #E2E2E2; -fx-border-color: #B6BAC1; -fx-border-radius: 2em;" />
-                  <Label layoutX="57.0" layoutY="25.0" text="Restaurant Orders" textFill="#686565">
+                  <Label layoutX="57.0" layoutY="25.0" text="Tickets en cours" textFill="#686565">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -132,69 +426,70 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label text="22000" textFill="#2a73ff">
+                              <Label fx:id="totTickets" text="22000" textFill="#2a73ff">
                                  <font>
                                     <Font name="System Bold" size="26.0" />
                                  </font>
                               </Label>
-                              <Label text="Total Orders" textFill="#686565" />
+                              <Label text="Tickets Totaux" textFill="#686565" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label text="1500" textFill="#26bfbc">
+                              <Label fx:id="TotTicketsToResolve" text="1500" textFill="#26bfbc">
                                  <font>
                                     <Font name="System Bold" size="26.0" />
                                  </font>
                               </Label>
-                              <Label text="Total delivered" textFill="#545252" />
+                              <Label text="Tickets à résoudre" textFill="#545252" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label text="1000" textFill="#fa5f7e">
+                              <Label fx:id="totalMyTickets" text="1000" textFill="#fa5f7e">
                                  <font>
                                     <Font name="System Bold" size="26.0" />
                                  </font>
                               </Label>
-                              <Label text="Peding Orders" textFill="#545252" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label text="780" textFill="#de0000">
-                                 <font>
-                                    <Font name="System Bold" size="26.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Orders on Hold" textFill="#545252" />
+                              <Label text="Mes Tickets" textFill="#545252" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" layoutX="45.0" layoutY="178.0" prefHeight="42.0" prefWidth="712.0" spacing="80.0" style="-fx-background-color: #E2E2E2;">
+                  <HBox alignment="CENTER_LEFT" layoutX="35.0" layoutY="178.0" prefHeight="42.0" prefWidth="712.0" spacing="60.0" style="-fx-background-color: #E2E2E2;">
                      <children>
-                        <Label text="Company Name" textFill="#727070">
+                        <Label text="ID" textFill="#727070">
                            <HBox.margin>
-                              <Insets left="50.0" />
+                              <Insets left="30.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="Airport" textFill="#727070">
+                        <Label text="Date" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="15.0" />
+                           </padding>
+                        </Label>
+                        <Label text="Description" textFill="#727070">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="50.0" />
+                           </padding>
+                        </Label>
+                        <Label text="Statut" textFill="#727070">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Label>
-                        <Label text="Delivery Date" textFill="#727070">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
+                        <Label layoutX="416.0" layoutY="23.0" prefWidth="80.0" text="Utilisateur assigné" textFill="#727070" wrapText="true">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
                         </Label>
-                        <Label text="Amount" textFill="#727070">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
-                        <Label text="Status" textFill="#727070">
+                        <Label text="Actions" textFill="#727070">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -203,18 +498,13 @@
                   </HBox>
                   <ScrollPane layoutX="14.0" layoutY="232.0" prefHeight="320.0" prefWidth="746.0" stylesheets="@style.css">
                      <content>
-                        <VBox fx:id="pnItems" prefHeight="318.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #E2E2E2;">
+                        <VBox fx:id="pnOverview" prefHeight="318.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #E2E2E2;">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </VBox>
                      </content>
                   </ScrollPane>
-                  <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="749.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8_Search_52px.png" />
-                     </image>
-                  </ImageView>
                </children>
             </Pane>
          </children>
